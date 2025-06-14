@@ -2193,6 +2193,10 @@ MonoBehaviour:
   - {fileID: 819724282}
   diceCount: 3
   dicePrefab: {fileID: 1980046223}
+  attackSlots:
+  - {fileID: 1604523029}
+  defenseSlots:
+  - {fileID: 906781505}
   hpText: {fileID: 1731182685}
 --- !u!1 &792695698
 GameObject:
@@ -4131,6 +4135,10 @@ MonoBehaviour:
   - {fileID: 1770041209}
   diceCount: 2
   dicePrefab: {fileID: 302699786}
+  attackSlots:
+  - {fileID: 1604523029}
+  defenseSlots:
+  - {fileID: 50400370}
   hpText: {fileID: 695941524}
 --- !u!1 &1375230629
 GameObject:

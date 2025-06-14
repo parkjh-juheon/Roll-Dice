@@ -13,6 +13,10 @@ public class EnemyUnit : MonoBehaviour
     public int diceCount = 3;
     public GameObject dicePrefab; // ★ Enemy별 주사위 프리팹 설정
 
+    public Transform[] attackSlots; // 적 공격 보드
+    public Transform[] defenseSlots; // 적 방어 보드
+
+
     [Header("UI 연결")]
     public TextMeshProUGUI hpText;
 

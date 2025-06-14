@@ -1,35 +1,32 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using System.Collections;
 
 public class DiceRollManager : MonoBehaviour
 {
-    public Transform[] playerAttackSlots;
+    public Transform[] playerAttackSlots; // 0: Enemy 0 ê³µê²©ìš©, 1: Enemy 1 ê³µê²©ìš©...
     public Transform[] playerDefenseSlots;
 
     public GameObject enemyDicePrefab;
-    public EnemyUnit[] enemyUnits; // ¾À¿¡¼­ ¸ğµç ÀûÀ» ¹è¿­·Î ¼öµ¿ ¿¬°á
+    public EnemyUnit[] enemyUnits; // ì”¬ì—ì„œ ëª¨ë“  ì ì„ ë°°ì—´ë¡œ ìˆ˜ë™ ì—°ê²°
 
     private void Start()
     {
-        SpawnEnemyDice(); // °ÔÀÓ ½ÃÀÛ ½Ã Àû ÁÖ»çÀ§ »ı¼º
+        SpawnEnemyDice(); // ê²Œì„ ì‹œì‘ ì‹œ ì  ì£¼ì‚¬ìœ„ ìƒì„±
     }
 
     public void RollAllPlayerDice()
     {
-        // Player ÁÖ»çÀ§ ±¼¸®±â
+        // Player ì£¼ì‚¬ìœ„ êµ´ë¦¬ê¸°
         RollDiceInSlots(playerAttackSlots);
         RollDiceInSlots(playerDefenseSlots);
 
-        // Enemy ÁÖ»çÀ§ ±¼¸®±â
+        // Enemy ì£¼ì‚¬ìœ„ êµ´ë¦¬ê¸°
         foreach (EnemyUnit enemy in enemyUnits)
         {
             if (!enemy.IsDead)
-            {
                 RollDiceInSlots(enemy.diceSlots);
-            }
         }
     }
-
-
 
     void RollDiceInSlots(Transform[] slots)
     {
@@ -81,10 +78,9 @@ public class DiceRollManager : MonoBehaviour
 
         if (attemptCount >= maxAttempts)
         {
-            Debug.LogWarning("SpawnDiceInSlots: ÃÖ´ë ½Ãµµ ÃÊ°ú.");
+            Debug.LogWarning("SpawnDiceInSlots: ìµœëŒ€ ì‹œë„ ì´ˆê³¼.");
         }
     }
-
 
     void ClearDiceInSlots(Transform[] slots)
     {
@@ -98,7 +94,7 @@ public class DiceRollManager : MonoBehaviour
     }
     public void ResetAllDice()
     {
-        // Player ÁÖ»çÀ§ Reset
+        // Player ì£¼ì‚¬ìœ„ Reset
         foreach (Dice dice in FindObjectsOfType<Dice>())
         {
             var drag = dice.GetComponent<DiceDrag>();
@@ -109,14 +105,15 @@ public class DiceRollManager : MonoBehaviour
             }
         }
 
-        // Enemy ÁÖ»çÀ§ ÀüºÎ »èÁ¦
+        // Enemy ì£¼ì‚¬ìœ„ ì „ë¶€ ì‚­ì œ
         foreach (EnemyUnit enemy in enemyUnits)
         {
             ClearDiceInSlots(enemy.diceSlots);
         }
 
-        // Enemy ÁÖ»çÀ§ Àç»ı¼º (¿ø·¡ diceCount ¸¸Å­¸¸)
+        // Enemy ì£¼ì‚¬ìœ„ ì¬ìƒì„± (ì›ë˜ diceCount ë§Œí¼ë§Œ)
         SpawnEnemyDice();
     }
-
 }
+
+
