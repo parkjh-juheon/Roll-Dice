@@ -31,19 +31,12 @@ public class DiceButtonManager : MonoBehaviour
 
     void OnResetClicked()
     {
-        foreach (Dice dice in FindObjectsOfType<Dice>())
-        {
-            var drag = dice.GetComponent<DiceDrag>();
-            if (drag != null)
-            {
-                dice.transform.SetParent(null);
-                dice.transform.position = drag.InitialPosition;
-            }
-
-        }
+        diceRollManager.ResetAllDice(); // 새로 만든 Reset 함수 호출
 
         hasRolled = false;
         rollButton.interactable = true;
         resetButton.interactable = false;
     }
+
+
 }

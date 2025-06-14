@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     public string unitName = "Player";
     public int maxHP = 20;
     public int currentHP;
+    public bool IsDead => currentHP <= 0;
 
     [Header("UI 요소")]
     public TextMeshProUGUI hpText;
@@ -37,6 +38,11 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("Game Over!");
             SceneManager.LoadScene("GameOver"); // GameOver 씬 로드
+        }
+
+        if (IsDead)
+        {
+            Destroy(gameObject); // 필요 시 제거 방식 변경 가능
         }
     }
 
