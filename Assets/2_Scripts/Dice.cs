@@ -38,8 +38,6 @@ public class Dice : MonoBehaviour
         CurrentValue = Random.Range(1, 7);
         spriteRenderer.sprite = diceFaces[CurrentValue - 1];
 
-        Debug.Log($"{gameObject.name} ±¼¸² °á°ú: {CurrentValue}");
-
         isRolling = false;
     }
 

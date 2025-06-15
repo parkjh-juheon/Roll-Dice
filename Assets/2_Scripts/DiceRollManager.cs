@@ -3,31 +3,47 @@ using System.Collections;
 
 public class DiceRollManager : MonoBehaviour
 {
-    public Transform[] playerAttackSlots; // 0: Enemy 0 공격용, 1: Enemy 1 공격용...
-    public Transform[] playerDefenseSlots;
+    [Header("Player Dice Slots")]
+    public Transform[] playerAttackSlots;   // 플레이어 공격 슬롯 (적별)
+    public Transform[] playerDefenseSlots;  // 플레이어 방어 슬롯 (공용)
 
-    public GameObject enemyDicePrefab;
-    public EnemyUnit[] enemyUnits; // 씬에서 모든 적을 배열로 수동 연결
+    [Header("References")]
+    public EnemyUnit[] enemyUnits;
+    public Unit playerUnit; // 플레이어 유닛
 
     private void Start()
     {
-        SpawnEnemyDice(); // 게임 시작 시 적 주사위 생성
+        SpawnEnemyDice();
     }
 
+    // 플레이어 및 적 모든 주사위 굴리기
     public void RollAllPlayerDice()
     {
-        // Player 주사위 굴리기
+        StartCoroutine(RollAllDiceAndCalculate());
+    }
+
+    private IEnumerator RollAllDiceAndCalculate()
+    {
+        // 플레이어 공격/방어 주사위 굴림
         RollDiceInSlots(playerAttackSlots);
         RollDiceInSlots(playerDefenseSlots);
 
-        // Enemy 주사위 굴리기
+        // 적 공격/방어 주사위 굴림
         foreach (EnemyUnit enemy in enemyUnits)
         {
             if (!enemy.IsDead)
-                RollDiceInSlots(enemy.diceSlots);
+            {
+                RollDiceInSlots(enemy.attackSlots);
+                RollDiceInSlots(enemy.defenseSlots);
+            }
         }
+
+        yield return new WaitForSeconds(1.1f);
+
+        CalculateBattle();
     }
 
+    // 주어진 슬롯 배열의 주사위 모두 굴리기
     void RollDiceInSlots(Transform[] slots)
     {
         foreach (Transform slot in slots)
@@ -36,65 +52,54 @@ public class DiceRollManager : MonoBehaviour
             {
                 Dice dice = slot.GetChild(0).GetComponent<Dice>();
                 if (dice != null)
-                {
                     dice.RollDice();
-                }
             }
         }
     }
 
+    // 적 유닛 각각의 공격/방어 주사위 생성
     public void SpawnEnemyDice()
     {
         foreach (EnemyUnit enemy in enemyUnits)
         {
             if (!enemy.IsDead)
             {
-                SpawnDiceInSlots(enemy.diceSlots, enemy.diceCount, enemy.dicePrefab);
+                SpawnDiceInSlots(enemy.attackSlots, enemy.diceCount, enemy.dicePrefab);
+                SpawnDiceInSlots(enemy.defenseSlots, enemy.diceCount, enemy.dicePrefab);
+            }
+            else
+            {
+                Debug.Log($"{enemy.enemyName}은(는) 죽어 주사위 생성 안 함");
             }
         }
     }
 
     void SpawnDiceInSlots(Transform[] slots, int diceCount, GameObject dicePrefab)
     {
-        int maxDicePossible = Mathf.Min(diceCount, slots.Length);
-        int placedCount = 0;
-        int attemptCount = 0;
-        int maxAttempts = 100;
+        int maxDice = Mathf.Min(diceCount, slots.Length);
+        int placed = 0, attempts = 0, maxAttempts = 100;
 
-        while (placedCount < maxDicePossible && attemptCount < maxAttempts)
+        while (placed < maxDice && attempts < maxAttempts)
         {
-            int randIndex = Random.Range(0, slots.Length);
-            Transform slot = slots[randIndex];
+            int rand = Random.Range(0, slots.Length);
+            Transform slot = slots[rand];
 
             if (slot.childCount == 0)
             {
                 GameObject diceObj = Instantiate(dicePrefab, slot.position, Quaternion.identity);
                 diceObj.transform.SetParent(slot);
-                placedCount++;
+                diceObj.transform.localPosition = Vector3.zero;
+                placed++;
             }
-
-            attemptCount++;
+            attempts++;
         }
 
-        if (attemptCount >= maxAttempts)
-        {
-            Debug.LogWarning("SpawnDiceInSlots: 최대 시도 초과.");
-        }
+        if (attempts >= maxAttempts)
+            Debug.LogWarning("SpawnDiceInSlots: 시도 초과");
     }
 
-    void ClearDiceInSlots(Transform[] slots)
-    {
-        foreach (Transform slot in slots)
-        {
-            if (slot.childCount > 0)
-            {
-                Destroy(slot.GetChild(0).gameObject);
-            }
-        }
-    }
     public void ResetAllDice()
     {
-        // Player 주사위 Reset
         foreach (Dice dice in FindObjectsOfType<Dice>())
         {
             var drag = dice.GetComponent<DiceDrag>();
@@ -105,15 +110,93 @@ public class DiceRollManager : MonoBehaviour
             }
         }
 
-        // Enemy 주사위 전부 삭제
         foreach (EnemyUnit enemy in enemyUnits)
         {
-            ClearDiceInSlots(enemy.diceSlots);
+            ClearDiceInSlots(enemy.attackSlots);
+            ClearDiceInSlots(enemy.defenseSlots);
         }
 
-        // Enemy 주사위 재생성 (원래 diceCount 만큼만)
         SpawnEnemyDice();
     }
+
+    private void CalculateBattle()
+    {
+        // 1. 플레이어 → 적 개별 방어
+        foreach (EnemyUnit enemy in enemyUnits)
+        {
+            if (!enemy.IsDead)
+            {
+                string playerAttackDetail = GetDiceValuesDetailed(enemy.attackReceiveSlots, out int playerAttack);
+                string enemyDefenseDetail = GetDiceValuesDetailed(enemy.defenseSlots, out int enemyDefense);
+
+                int damageToEnemy = Mathf.Max(0, playerAttack - enemyDefense);
+
+                Debug.Log($"[전투] {enemy.enemyName} 공격받음: ({playerAttackDetail}) - ({enemyDefenseDetail}) = {damageToEnemy}");
+                enemy.TakeDamage(damageToEnemy);
+            }
+        }
+
+        // 2. 적 전체 공격 → 플레이어 방어 (전체 합산 후 나누기)
+        int totalEnemyAttackBeforeDivide = 0;
+        int aliveEnemyCount = 0;
+        string totalEnemyAttackDetail = "";
+
+        foreach (EnemyUnit enemy in enemyUnits)
+        {
+            if (!enemy.IsDead)
+            {
+                string attackDetail = GetDiceValuesDetailed(enemy.attackSlots, out int attackValue);
+                totalEnemyAttackBeforeDivide += attackValue;
+                totalEnemyAttackDetail += $"{enemy.enemyName}({attackDetail}) ";
+                aliveEnemyCount++;
+            }
+        }
+
+        int totalEnemyAttack = 0;
+        if (aliveEnemyCount > 0)
+            totalEnemyAttack = totalEnemyAttackBeforeDivide / aliveEnemyCount; // 총합 후 나누기
+
+        string playerDefenseDetail = GetDiceValuesDetailed(playerDefenseSlots, out int playerDefense);
+        int damageToPlayer = Mathf.Max(0, totalEnemyAttack - playerDefense);
+
+        Debug.Log($"[전투] 적 전체 공격 (분할 전): {totalEnemyAttackDetail}= {totalEnemyAttackBeforeDivide} / {aliveEnemyCount} = {totalEnemyAttack}");
+        Debug.Log($"[전투] 플레이어 방어: {playerDefenseDetail}= {playerDefense}");
+        Debug.Log($"[전투] 플레이어 피해량: {totalEnemyAttack} - {playerDefense} = {damageToPlayer}");
+
+        playerUnit.TakeDamage(damageToPlayer);
+    }
+
+
+    private string GetDiceValuesDetailed(Transform[] slots, out int sum)
+    {
+        sum = 0;
+        System.Text.StringBuilder sb = new System.Text.StringBuilder("(");
+        bool first = true;
+
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
+            {
+                Dice dice = slot.GetChild(0).GetComponent<Dice>();
+                if (dice != null)
+                {
+                    if (!first) sb.Append(", ");
+                    sb.Append(dice.CurrentValue);
+                    sum += dice.CurrentValue;
+                    first = false;
+                }
+            }
+        }
+        sb.Append(")");
+        return sb.ToString();
+    }
+
+    void ClearDiceInSlots(Transform[] slots)
+    {
+        foreach (Transform slot in slots)
+        {
+            if (slot.childCount > 0)
+                Destroy(slot.GetChild(0).gameObject);
+        }
+    }
 }
-
-

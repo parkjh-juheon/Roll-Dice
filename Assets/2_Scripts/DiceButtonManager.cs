@@ -22,7 +22,8 @@ public class DiceButtonManager : MonoBehaviour
     {
         if (hasRolled) return;
 
-        diceRollManager.RollAllPlayerDice();
+        diceRollManager.RollAllPlayerDice(); // 주사위 굴리기
+        //diceRollManager.CalculateBattle();   // 바로 전투 계산
 
         hasRolled = true;
         rollButton.interactable = false;
@@ -31,12 +32,10 @@ public class DiceButtonManager : MonoBehaviour
 
     void OnResetClicked()
     {
-        diceRollManager.ResetAllDice(); // 새로 만든 Reset 함수 호출
+        diceRollManager.ResetAllDice();
 
         hasRolled = false;
         rollButton.interactable = true;
         resetButton.interactable = false;
     }
-
-
 }

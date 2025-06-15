@@ -13,6 +13,11 @@ public class Unit : MonoBehaviour
     [Header("UI 요소")]
     public TextMeshProUGUI hpText;
 
+    [Header("주사위 보드 슬롯")]
+    public Transform[] attackSlots; // ★ 추가: 공격 보드
+    public Transform[] defenseSlots; // ★ 추가: 방어 보드
+    public Transform[] hitSlots;     // ★ 추가: 피격 보드 (적의 공격 주사위가 올려짐)
+
     private void Awake()
     {
         LoadHP();
