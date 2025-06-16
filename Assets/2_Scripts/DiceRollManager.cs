@@ -10,6 +10,9 @@ public class DiceRollManager : MonoBehaviour
     [Header("References")]
     public EnemyUnit[] enemyUnits;
     public Unit playerUnit; // 플레이어 유닛
+    
+    [Header("UI Panel")]
+    public GameObject victoryPanel;
 
     private void Start()
     {
@@ -164,6 +167,22 @@ public class DiceRollManager : MonoBehaviour
         Debug.Log($"[전투] 플레이어 피해량: {totalEnemyAttack} - {playerDefense} = {damageToPlayer}");
 
         playerUnit.TakeDamage(damageToPlayer);
+
+        bool allEnemiesDead = true;
+        foreach (EnemyUnit enemy in enemyUnits)
+        {
+            if (!enemy.IsDead)
+            {
+                allEnemiesDead = false;
+                break;
+            }
+        }
+
+        if (allEnemiesDead)
+        {
+            Debug.Log("[전투] 모든 적 사망. 승리 패널 활성화!");
+            victoryPanel.SetActive(true);
+        }
     }
 
 
