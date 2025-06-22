@@ -139,9 +139,8 @@ public class DiceRollManager : MonoBehaviour
             }
         }
 
-        // 2. 적 전체 공격 → 플레이어 방어 (전체 합산 후 나누기)
+        // 2. 적 전체 공격 → 플레이어 방어 (전체 합산 후 나누기 제거)
         int totalEnemyAttackBeforeDivide = 0;
-        int aliveEnemyCount = 0;
         string totalEnemyAttackDetail = "";
 
         foreach (EnemyUnit enemy in enemyUnits)
@@ -151,22 +150,20 @@ public class DiceRollManager : MonoBehaviour
                 string attackDetail = GetDiceValuesDetailed(enemy.attackSlots, out int attackValue);
                 totalEnemyAttackBeforeDivide += attackValue;
                 totalEnemyAttackDetail += $"{enemy.enemyName}({attackDetail}) ";
-                aliveEnemyCount++;
             }
         }
 
-        int totalEnemyAttack = 0;
-        if (aliveEnemyCount > 0)
-            totalEnemyAttack = totalEnemyAttackBeforeDivide / aliveEnemyCount; // 총합 후 나누기
+        int totalEnemyAttack = totalEnemyAttackBeforeDivide; // 여기서 나누기를 제거함!!
 
         string playerDefenseDetail = GetDiceValuesDetailed(playerDefenseSlots, out int playerDefense);
         int damageToPlayer = Mathf.Max(0, totalEnemyAttack - playerDefense);
 
-        Debug.Log($"[전투] 적 전체 공격 (분할 전): {totalEnemyAttackDetail}= {totalEnemyAttackBeforeDivide} / {aliveEnemyCount} = {totalEnemyAttack}");
+        Debug.Log($"[전투] 적 전체 공격 합계: {totalEnemyAttackDetail}= {totalEnemyAttackBeforeDivide}");
         Debug.Log($"[전투] 플레이어 방어: {playerDefenseDetail}= {playerDefense}");
         Debug.Log($"[전투] 플레이어 피해량: {totalEnemyAttack} - {playerDefense} = {damageToPlayer}");
 
         playerUnit.TakeDamage(damageToPlayer);
+
 
         bool allEnemiesDead = true;
         foreach (EnemyUnit enemy in enemyUnits)

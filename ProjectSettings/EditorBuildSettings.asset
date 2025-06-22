@@ -9,20 +9,29 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Title.unity
     guid: 17d95339642d1ee4daf645d0b031f887
   - enabled: 1
-    path: Assets/1_Scenes/Map.unity
+    path: Assets/1_Scenes/Map/Map.unity
     guid: 149e0763c6bab9248a1352df24f453aa
   - enabled: 1
-    path: Assets/1_Scenes/Stage2.unity
+    path: Assets/1_Scenes/Map/Map 1.unity
+    guid: 2730545333b860b4d9d2e3641a2ee0ac
+  - enabled: 1
+    path: Assets/1_Scenes/Stage/Stage1.unity
+    guid: 052d8d26a0da9884381187d7aa980110
+  - enabled: 1
+    path: Assets/1_Scenes/Map/Map 2.unity
+    guid: 80b0f7dc4863a1540a24ce9a7499b9b8
+  - enabled: 1
+    path: Assets/1_Scenes/Stage/Stage2.unity
     guid: 2f61da21885c5a94b955704e23f4a887
   - enabled: 1
-    path: Assets/1_Scenes/Stage2.unity
-    guid: 12ceaf5962a71534fa5a532de23dbf57
+    path: Assets/1_Scenes/Map/Map 3.unity
+    guid: ad41ece529d408c4abf45a0b7f78b1ac
   - enabled: 1
-    path: Assets/1_Scenes/Stage3.unity
-    guid: 2247e2f31d7806b47a8dc73be8317f88
+    path: Assets/1_Scenes/Stage/Stage3.unity
+    guid: a8e3528293555d542881784db8a00b5b
   - enabled: 1
-    path: Assets/1_Scenes/Stage4.unity
-    guid: 3ec9f1368bb2a51449302967f4afa893
+    path: Assets/1_Scenes/Stage/Stage4.unity
+    guid: 8f1e43f4d46fda84281f1448f6289656
   - enabled: 1
     path: Assets/1_Scenes/GameOver.unity
     guid: 109d63bb3486b3a4d8d930522b5a8641
