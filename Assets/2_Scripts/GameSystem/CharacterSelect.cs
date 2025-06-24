@@ -11,5 +11,6 @@ public class CharacterSelect : MonoBehaviour
 
         // 게임 씬으로 이동
         SceneManager.LoadScene("GameScene");
+         
     }
 }
