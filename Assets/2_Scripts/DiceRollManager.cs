@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DiceRollManager : MonoBehaviour
 {
@@ -177,8 +178,8 @@ public class DiceRollManager : MonoBehaviour
 
         if (allEnemiesDead)
         {
-            Debug.Log("[전투] 모든 적 사망. 승리 패널 활성화!");
-            victoryPanel.SetActive(true);
+            Debug.Log("[전투] 모든 적 사망. 클리어 씬으로 이동!");
+            SceneManager.LoadScene("Clear"); // ← victoryPanel 대신
         }
     }
 
