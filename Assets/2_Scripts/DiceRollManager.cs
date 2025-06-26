@@ -183,7 +183,6 @@ public class DiceRollManager : MonoBehaviour
         }
     }
 
-
     private string GetDiceValuesDetailed(Transform[] slots, out int sum)
     {
         sum = 0;

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealDiceManager : MonoBehaviour
+public class EventDiceManager : MonoBehaviour
 {
     public Dice greenDice;
     public GameObject healPanel;         //  나중에 수동으로 활성화할 패널

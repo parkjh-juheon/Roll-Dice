@@ -53,7 +53,7 @@ public class EnemyUnit : MonoBehaviour
             hpText.text = $"{CurrentHP} / {maxHP}";
     }
 
-    // ★★★ 공격 보드용 주사위 굴리기 ★★★
+    // 공격 보드용 주사위 굴리기
     public void RollAttackDice()
     {
         // 기존 주사위 삭제
@@ -64,14 +64,21 @@ public class EnemyUnit : MonoBehaviour
         attackDiceObjects.Clear();
 
         // 새 주사위 생성
-        for (int i = 0; i < attackSlots.Length; i++)
+        int created = 0;
+        for (int i = 0; i < attackSlots.Length && created < diceCount; i++)
         {
-            GameObject dice = Instantiate(dicePrefab, attackSlots[i]);
-            attackDiceObjects.Add(dice);
+            if (attackSlots[i].childCount == 0)
+            {
+                GameObject dice = Instantiate(dicePrefab, attackSlots[i]);
+                dice.transform.localPosition = Vector3.zero; // 위치 정렬
+                attackDiceObjects.Add(dice);
+                created++;
+            }
         }
+
     }
 
-    // ★★★ 방어 보드용 주사위 굴리기 ★★★
+    // 방어 보드용 주사위 굴리기
     public void RollDefenseDice()
     {
         // 기존 주사위 삭제
@@ -82,10 +89,16 @@ public class EnemyUnit : MonoBehaviour
         defenseDiceObjects.Clear();
 
         // 새 주사위 생성
-        for (int i = 0; i < defenseSlots.Length; i++)
+        int created = 0;
+        for (int i = 0; i < defenseSlots.Length && created < diceCount; i++)
         {
-            GameObject dice = Instantiate(dicePrefab, defenseSlots[i]);
-            defenseDiceObjects.Add(dice);
+            if (defenseSlots[i].childCount == 0)
+            {
+                GameObject dice = Instantiate(dicePrefab, defenseSlots[i]);
+                dice.transform.localPosition = Vector3.zero;
+                defenseDiceObjects.Add(dice);
+                created++;
+            }
         }
     }
 }
