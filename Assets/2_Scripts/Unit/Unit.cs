@@ -17,6 +17,9 @@ public class Unit : MonoBehaviour
     public Transform[] defenseSlots;
     public Transform[] hitSlots;
 
+    [Header("애니메이션")]
+    public Animator animator; // 인스펙터에 연결 필요
+
     private void Awake()
     {
         LoadHP();
@@ -41,8 +44,22 @@ public class Unit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        int prevHP = CurrentHP;
         CurrentHP -= damage;
 
+        // 실제로 체력이 깎였을 때만 실행
+        if (damage > 0 && CurrentHP < prevHP)
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("Hit");
+            }
+
+            if (CameraShake.Instance != null)
+                CameraShake.Instance.ShakeCamera();
+        }
+
+        // 사망 처리
         if (unitName == "Player" && CurrentHP <= 0)
         {
             Debug.Log("Game Over!");
@@ -51,7 +68,7 @@ public class Unit : MonoBehaviour
 
         if (IsDead)
         {
-            Destroy(gameObject); // 적일 경우 처리
+            Destroy(gameObject);
         }
     }
 

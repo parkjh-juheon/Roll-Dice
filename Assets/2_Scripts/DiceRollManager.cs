@@ -140,8 +140,9 @@ public class DiceRollManager : MonoBehaviour
             }
         }
 
-        // 2. 적 전체 공격 → 플레이어 방어 (전체 합산 후 나누기 제거)
+        // 2. 적 전체 공격 → 플레이어 방어 (평균 공격력 사용)
         int totalEnemyAttackBeforeDivide = 0;
+        int aliveEnemyCount = 0;
         string totalEnemyAttackDetail = "";
 
         foreach (EnemyUnit enemy in enemyUnits)
@@ -151,19 +152,23 @@ public class DiceRollManager : MonoBehaviour
                 string attackDetail = GetDiceValuesDetailed(enemy.attackSlots, out int attackValue);
                 totalEnemyAttackBeforeDivide += attackValue;
                 totalEnemyAttackDetail += $"{enemy.enemyName}({attackDetail}) ";
+                aliveEnemyCount++;
             }
         }
 
-        int totalEnemyAttack = totalEnemyAttackBeforeDivide; // 여기서 나누기를 제거함!!
+        // 평균 공격력 계산 (정수 나눗셈)
+        int totalEnemyAttack = aliveEnemyCount > 0 ? totalEnemyAttackBeforeDivide / aliveEnemyCount : 0;
 
         string playerDefenseDetail = GetDiceValuesDetailed(playerDefenseSlots, out int playerDefense);
         int damageToPlayer = Mathf.Max(0, totalEnemyAttack - playerDefense);
 
         Debug.Log($"[전투] 적 전체 공격 합계: {totalEnemyAttackDetail}= {totalEnemyAttackBeforeDivide}");
+        Debug.Log($"[전투] 살아 있는 적 수: {aliveEnemyCount}, 평균 공격력: {totalEnemyAttack}");
         Debug.Log($"[전투] 플레이어 방어: {playerDefenseDetail}= {playerDefense}");
         Debug.Log($"[전투] 플레이어 피해량: {totalEnemyAttack} - {playerDefense} = {damageToPlayer}");
 
         playerUnit.TakeDamage(damageToPlayer);
+
 
 
         bool allEnemiesDead = true;
@@ -179,7 +184,17 @@ public class DiceRollManager : MonoBehaviour
         if (allEnemiesDead)
         {
             Debug.Log("[전투] 모든 적 사망. 클리어 씬으로 이동!");
-            SceneManager.LoadScene("Clear"); // ← victoryPanel 대신
+
+            // ChangeScene 컴포넌트 통해서 Clear 씬으로 이동
+            ChangeScene changer = FindObjectOfType<ChangeScene>();
+            if (changer != null)
+            {
+                changer.ChangeToScene("Clear");
+            }
+            else
+            {
+                Debug.LogWarning("ChangeScene 컴포넌트를 찾을 수 없습니다.");
+            }
         }
     }
 

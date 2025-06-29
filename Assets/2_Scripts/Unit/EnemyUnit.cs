@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class EnemyUnit : MonoBehaviour
@@ -21,9 +22,14 @@ public class EnemyUnit : MonoBehaviour
     [Header("UI 연결")]
     public TextMeshProUGUI hpText;
 
+    [Header("스프라이트")]
+    public SpriteRenderer spriteRenderer; // 인스펙터에서 연결
+
+    public Color hitColor = Color.red;    // 데미지 시 색상
+    public float hitColorDuration = 0.15f; // 색상 지속 시간
+
     public bool IsDead => CurrentHP <= 0;
 
-    // 현재 생성된 주사위 오브젝트 리스트
     private List<GameObject> attackDiceObjects = new List<GameObject>();
     private List<GameObject> defenseDiceObjects = new List<GameObject>();
 
@@ -35,16 +41,29 @@ public class EnemyUnit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        int prevHP = CurrentHP;
         CurrentHP -= damage;
         if (CurrentHP < 0) CurrentHP = 0;
 
         UpdateHPUI();
+
+        // 체력이 실제로 감소했을 때만 색상 변경 효과 실행
+        if (spriteRenderer != null && damage > 0 && CurrentHP < prevHP)
+            StartCoroutine(HitColorEffect());
 
         if (IsDead)
         {
             Debug.Log($"{enemyName} 처치됨");
             gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator HitColorEffect()
+    {
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = hitColor;
+        yield return new WaitForSeconds(hitColorDuration);
+        spriteRenderer.color = originalColor;
     }
 
     private void UpdateHPUI()
