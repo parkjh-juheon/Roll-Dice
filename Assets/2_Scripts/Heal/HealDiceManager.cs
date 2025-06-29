@@ -16,7 +16,7 @@ public class EventDiceManager : MonoBehaviour
     void Start()
     {
         healPanel.SetActive(false);
-        nextButton.interactable = false; //  Next는 처음에 비활성화
+        nextButton.interactable = true; // Next 버튼을 항상 활성화
         rollButton.onClick.AddListener(RollDiceAndHeal);
         nextButton.onClick.AddListener(ShowHealPanel); //  버튼 클릭 연결
     }
@@ -48,19 +48,16 @@ public class EventDiceManager : MonoBehaviour
 
         hasHealed = true;
         rollButton.interactable = false;
-        nextButton.interactable = true; //  회복 후에만 Next 버튼 사용 가능
+        nextButton.interactable = true; // 회복 후에도 Next 버튼 사용 가능
 
         healResultText.text = $"Heal: {result}\nHeal After HP\n{PlayerData.Instance.currentHP}/{PlayerData.Instance.maxHP}";
     }
 
     void ShowHealPanel()
     {
-        if (hasHealed)
-        {
-            healPanel.SetActive(true);                 // 패널 활성화
-            healResultText.gameObject.SetActive(false); // healResultText 비활성화
-            nextButton.interactable = false;
-        }
+        // 조건 없이 항상 동작
+        healPanel.SetActive(true);                 // 패널 활성화
+        healResultText.gameObject.SetActive(false); // healResultText 비활성화
+        nextButton.interactable = false;
     }
-
 }

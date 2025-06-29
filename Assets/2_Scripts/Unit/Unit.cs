@@ -63,13 +63,14 @@ public class Unit : MonoBehaviour
         if (unitName == "Player" && CurrentHP <= 0)
         {
             Debug.Log("Game Over!");
-            SceneManager.LoadScene("GameOver");
+            if (animator != null)
+            {
+                animator.SetTrigger("Death");
+            }
+
+            StartCoroutine(LoadGameOverSceneWithDelay(1.5f)); // 1.5초 후 씬 전환
         }
 
-        if (IsDead)
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void Heal(int amount)
@@ -86,12 +87,18 @@ public class Unit : MonoBehaviour
     {
         if (unitName == "Player")
         {
-            PlayerData.Instance.LoadHP(); // 이미 구현됨!
+            PlayerData.Instance.LoadHP();
         }
         else
         {
             PlayerData.Instance.currentHP = maxHP; // 적은 항상 풀피
         }
+    }
+
+    private System.Collections.IEnumerator LoadGameOverSceneWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene("GameOver");
     }
 
 }

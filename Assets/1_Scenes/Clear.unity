@@ -846,9 +846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Next
-
-'
+  m_text: Skip
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1050,6 +1048,10 @@ PrefabInstance:
       propertyPath: hpText
       value: 
       objectReference: {fileID: 1202045544}
+    - target: {fileID: 1480696248327354578, guid: 802617b690afd6746a5c125935aa33cd, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1183762539}
     - target: {fileID: 4959845410806842555, guid: 802617b690afd6746a5c125935aa33cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.11
@@ -1488,6 +1490,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &1183762539 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2550038349659030376, guid: 802617b690afd6746a5c125935aa33cd, type: 3}
+  m_PrefabInstance: {fileID: 780936045}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1202045542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,7 +1813,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Map
+          m_StringArgument: Map 1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1292138120
