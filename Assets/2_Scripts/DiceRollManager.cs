@@ -15,15 +15,28 @@ public class DiceRollManager : MonoBehaviour
     [Header("UI Panel")]
     public GameObject victoryPanel;
 
+    public AudioClip diceRollClip;      // 인스펙터에서 주사위 소리 연결
+    private AudioSource audioSource;
+
     private void Start()
     {
         SpawnEnemyDice();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // 플레이어 및 적 모든 주사위 굴리기
     public void RollAllPlayerDice()
     {
         StartCoroutine(RollAllDiceAndCalculate());
+        PlayDiceSound();
+    }
+
+    void PlayDiceSound()
+    {
+        if (audioSource != null && diceRollClip != null)
+        {
+            audioSource.PlayOneShot(diceRollClip);
+        }
     }
 
     private IEnumerator RollAllDiceAndCalculate()
@@ -184,17 +197,23 @@ public class DiceRollManager : MonoBehaviour
         if (allEnemiesDead)
         {
             Debug.Log("[전투] 모든 적 사망. 클리어 씬으로 이동!");
+            StartCoroutine(DelayAndChangeScene(2f)); // 2초 딜레이 후 씬 전환 (원하는 시간으로 조절)
+        }
+    }
 
-            // ChangeScene 컴포넌트 통해서 Clear 씬으로 이동
-            ChangeScene changer = FindObjectOfType<ChangeScene>();
-            if (changer != null)
-            {
-                changer.ChangeToScene("Clear");
-            }
-            else
-            {
-                Debug.LogWarning("ChangeScene 컴포넌트를 찾을 수 없습니다.");
-            }
+    private IEnumerator DelayAndChangeScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // ChangeScene 컴포넌트 통해서 Clear 씬으로 이동
+        ChangeScene changer = FindObjectOfType<ChangeScene>();
+        if (changer != null)
+        {
+            changer.ChangeToScene("Clear");
+        }
+        else
+        {
+            Debug.LogWarning("ChangeScene 컴포넌트를 찾을 수 없습니다.");
         }
     }
 

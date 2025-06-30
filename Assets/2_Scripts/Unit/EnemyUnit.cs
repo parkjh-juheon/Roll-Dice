@@ -1,7 +1,7 @@
-﻿using TMPro;
-using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
 {
@@ -28,6 +28,9 @@ public class EnemyUnit : MonoBehaviour
     public Color hitColor = Color.red;    // 데미지 시 색상
     public float hitColorDuration = 0.15f; // 색상 지속 시간
 
+    [Header("파티클")]
+    public GameObject dieParticlePrefab; // 인스펙터에서 할당
+
     public bool IsDead => CurrentHP <= 0;
 
     private List<GameObject> attackDiceObjects = new List<GameObject>();
@@ -47,15 +50,30 @@ public class EnemyUnit : MonoBehaviour
 
         UpdateHPUI();
 
-        // 체력이 실제로 감소했을 때만 색상 변경 효과 실행
         if (spriteRenderer != null && damage > 0 && CurrentHP < prevHP)
             StartCoroutine(HitColorEffect());
 
         if (IsDead)
         {
             Debug.Log($"{enemyName} 처치됨");
-            gameObject.SetActive(false);
+
+            // 파티클 생성 (부모 없이 생성)
+            if (dieParticlePrefab != null)
+            {
+                GameObject particle = Instantiate(dieParticlePrefab, transform.position, Quaternion.identity);
+                particle.transform.SetParent(null); // 부모 관계 제거
+                Destroy(particle, 2f); // 파티클 수명 후 제거
+            }
+
+
+            // 일정 시간 후 오브젝트 비활성화
+            StartCoroutine(DeactivateAfterDelay(0.5f));
         }
+    }
+    private IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
     }
 
     private IEnumerator HitColorEffect()
