@@ -53,6 +53,12 @@ public class EventDiceManager : MonoBehaviour
         healResultText.text = $"Heal: {result}\nHeal After HP\n{PlayerData.Instance.currentHP}/{PlayerData.Instance.maxHP}";
 
         FindObjectOfType<Unit>()?.UpdateHPUI();
+        var player = FindObjectOfType<Unit>();
+        if (player != null && player.healEffectPrefab != null && player.hitEffectPoint != null)
+        {
+            GameObject effect = Instantiate(player.healEffectPrefab, player.hitEffectPoint.position, Quaternion.identity);
+            Destroy(effect, 2f);
+        }
 
     }
 

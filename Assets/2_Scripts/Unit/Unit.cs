@@ -94,11 +94,8 @@ public class Unit : MonoBehaviour
             if (healEffectPrefab != null && healEffectPoint != null)
             {
                 GameObject effect = Instantiate(healEffectPrefab, healEffectPoint.position, Quaternion.identity);
-                ParticleSystem ps = effect.GetComponent<ParticleSystem>();
-                if (ps != null)
-                {
-                    ps.Play();
-                }
+                ParticleSystem ps = effect.GetComponentInChildren<ParticleSystem>();
+                if (ps != null) ps.Play();
                 Destroy(effect, 2f);
             }
         }
