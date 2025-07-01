@@ -3145,6 +3145,8 @@ MonoBehaviour:
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitColorDuration: 0.15
   dieParticlePrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
+  hitEffectPoint: {fileID: 0}
 --- !u!1 &728335514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,6 +3285,8 @@ MonoBehaviour:
   - {fileID: 706158906}
   playerUnit: {fileID: 14302981}
   victoryPanel: {fileID: 228512933}
+  diceRollClip: {fileID: 0}
+  nextSceneName: Clear 3
 --- !u!1 &819724281
 GameObject:
   m_ObjectHideFlags: 0
@@ -5482,6 +5486,8 @@ MonoBehaviour:
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitColorDuration: 0.15
   dieParticlePrefab: {fileID: 0}
+  hitEffectPrefab: {fileID: 0}
+  hitEffectPoint: {fileID: 0}
 --- !u!1 &1392192386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 965412763143774540, guid: 9395b78c6a8c1f4498e825b76cb7e3c7, type: 3}

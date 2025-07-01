@@ -19,8 +19,8 @@ public class Event : MonoBehaviour
         healResultText.text = "";
 
         // 주사위 범위를 설정
-        eventDice.minValue = -6;
-        eventDice.maxValue = 6;
+        //eventDice.minValue = -6;
+        //eventDice.maxValue = 6;
 
         rollButton.onClick.AddListener(RollDiceAndProcessHP);
         nextButton.onClick.AddListener(ShowHealPanel);

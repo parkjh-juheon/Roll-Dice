@@ -18,6 +18,9 @@ public class DiceRollManager : MonoBehaviour
     public AudioClip diceRollClip;      // 인스펙터에서 주사위 소리 연결
     private AudioSource audioSource;
 
+    [Header("씬 이동 설정")]
+    public string nextSceneName = "Clear"; // 인스펙터에서 조정 가능
+
     private void Start()
     {
         SpawnEnemyDice();
@@ -205,11 +208,11 @@ public class DiceRollManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        // ChangeScene 컴포넌트 통해서 Clear 씬으로 이동
+        // ChangeScene 컴포넌트 통해서 nextSceneName 씬으로 이동
         ChangeScene changer = FindObjectOfType<ChangeScene>();
         if (changer != null)
         {
-            changer.ChangeToScene("Clear");
+            changer.ChangeToScene(nextSceneName);
         }
         else
         {

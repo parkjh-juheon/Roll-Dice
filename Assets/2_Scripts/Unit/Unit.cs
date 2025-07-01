@@ -18,7 +18,16 @@ public class Unit : MonoBehaviour
     public Transform[] hitSlots;
 
     [Header("애니메이션")]
-    public Animator animator; // 인스펙터에 연결 필요
+    public Animator animator;
+
+    [Header("피격 이펙트")]
+    public GameObject hitEffectPrefab;
+    public Transform hitEffectPoint;
+
+    [Header("회복 이펙트")]
+    public GameObject healEffectPrefab;
+    public Transform healEffectPoint; 
+
 
     private void Awake()
     {
@@ -47,36 +56,51 @@ public class Unit : MonoBehaviour
         int prevHP = CurrentHP;
         CurrentHP -= damage;
 
-        // 실제로 체력이 깎였을 때만 실행
         if (damage > 0 && CurrentHP < prevHP)
         {
             if (animator != null)
-            {
                 animator.SetTrigger("Hit");
-            }
 
             if (CameraShake.Instance != null)
                 CameraShake.Instance.ShakeCamera();
+
+            if (hitEffectPrefab != null && hitEffectPoint != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
+                var ps = effect.GetComponent<ParticleSystem>();
+                if (ps != null) ps.Play();
+                Destroy(effect, 2f);
+            }
         }
 
-        // 사망 처리
         if (unitName == "Player" && CurrentHP <= 0)
         {
             Debug.Log("Game Over!");
             if (animator != null)
-            {
                 animator.SetTrigger("Death");
-            }
 
-            StartCoroutine(LoadGameOverSceneWithDelay(1.5f)); // 1.5초 후 씬 전환
+            StartCoroutine(LoadGameOverSceneWithDelay(1.5f));
         }
-
     }
 
     public void Heal(int amount)
     {
+        int prevHP = CurrentHP;
         CurrentHP += amount;
+
+        // 회복량이 실제로 양수일 경우만 이펙트 출력
+        if (amount > 0 && CurrentHP > prevHP)
+        {
+            if (healEffectPrefab != null && healEffectPoint != null)
+            {
+                GameObject effect = Instantiate(healEffectPrefab, healEffectPoint.position, Quaternion.identity);
+                ParticleSystem ps = effect.GetComponentInChildren<ParticleSystem>();
+                if (ps != null) ps.Play();
+                Destroy(effect, 2f);
+            }
+        }
     }
+
 
     public void SaveHP()
     {
@@ -91,7 +115,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            PlayerData.Instance.currentHP = maxHP; // 적은 항상 풀피
+            PlayerData.Instance.currentHP = maxHP;
         }
     }
 
@@ -100,5 +124,4 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene("GameOver");
     }
-
 }

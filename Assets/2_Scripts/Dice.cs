@@ -3,19 +3,18 @@ using System.Collections;
 
 public class Dice : MonoBehaviour
 {
-    public Sprite[] diceFaces; // 스프라이트 (0~5만 있으면 됨)
+    [Header("주사위 스프라이트 설정")]
+    public Sprite[] diceFaces; // 0 ~ 5: 1~6 스프라이트
     public SpriteRenderer spriteRenderer;
 
-    public float rollDuration = 1.0f;
-    public float rollInterval = 0.1f;
-
-    [Header("값 범위 설정")]
-    public int minValue = -6;
-    public int maxValue = 6;
+    [Header("애니메이션 설정")]
+    public float rollDuration = 1.0f; // 굴리는 전체 시간
+    public float rollInterval = 0.1f; // 눈이 바뀌는 속도
 
     public int CurrentValue { get; private set; } = 1;
     private bool isRolling = false;
 
+    // 외부에서 호출하여 굴림 시작
     public void RollDice()
     {
         if (!isRolling)
@@ -29,18 +28,15 @@ public class Dice : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < rollDuration)
         {
-            int randSprite = Random.Range(0, diceFaces.Length); // 시각 효과용
-            spriteRenderer.sprite = diceFaces[randSprite];
+            int randIndex = Random.Range(0, diceFaces.Length);
+            spriteRenderer.sprite = diceFaces[randIndex];
             elapsed += rollInterval;
             yield return new WaitForSeconds(rollInterval);
         }
 
-        // 실제 결과값 결정
-        CurrentValue = Random.Range(minValue, maxValue + 1);
-
-        // 스프라이트는 절댓값 기준으로 표시
-        int faceIndex = Mathf.Clamp(Mathf.Abs(CurrentValue) - 1, 0, diceFaces.Length - 1);
-        spriteRenderer.sprite = diceFaces[faceIndex];
+        // 최종 결과 결정
+        CurrentValue = Random.Range(1, 7);
+        spriteRenderer.sprite = diceFaces[CurrentValue - 1];
 
         isRolling = false;
     }
@@ -52,7 +48,10 @@ public class Dice : MonoBehaviour
 
     public void ResetDice()
     {
+        // 리셋 시 초기 눈(1)로 설정
         CurrentValue = 1;
         spriteRenderer.sprite = diceFaces[0];
     }
 }
+
+

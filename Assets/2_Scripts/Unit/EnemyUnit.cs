@@ -12,24 +12,25 @@ public class EnemyUnit : MonoBehaviour
 
     [Header("주사위 설정")]
     public int diceCount = 3;
-    public GameObject dicePrefab; // 적별 주사위 프리팹
+    public GameObject dicePrefab;
 
     [Header("전투 보드 슬롯")]
-    public Transform[] attackSlots;        // 적 공격용 슬롯
-    public Transform[] defenseSlots;       // 적 방어용 슬롯
-    public Transform[] attackReceiveSlots; // 플레이어가 이 적을 공격할 때 사용하는 슬롯
+    public Transform[] attackSlots;
+    public Transform[] defenseSlots;
+    public Transform[] attackReceiveSlots;
 
     [Header("UI 연결")]
     public TextMeshProUGUI hpText;
 
     [Header("스프라이트")]
-    public SpriteRenderer spriteRenderer; // 인스펙터에서 연결
-
-    public Color hitColor = Color.red;    // 데미지 시 색상
-    public float hitColorDuration = 0.15f; // 색상 지속 시간
+    public SpriteRenderer spriteRenderer;
+    public Color hitColor = Color.red;
+    public float hitColorDuration = 0.15f;
 
     [Header("파티클")]
-    public GameObject dieParticlePrefab; // 인스펙터에서 할당
+    public GameObject dieParticlePrefab;
+    public GameObject hitEffectPrefab;             // 🔽 추가: 피격 이펙트 프리팹
+    public Transform hitEffectPoint;               // 🔽 추가: 피격 이펙트 위치
 
     public bool IsDead => CurrentHP <= 0;
 
@@ -50,26 +51,43 @@ public class EnemyUnit : MonoBehaviour
 
         UpdateHPUI();
 
-        if (spriteRenderer != null && damage > 0 && CurrentHP < prevHP)
-            StartCoroutine(HitColorEffect());
+        // 피격 효과
+        if (damage > 0 && CurrentHP < prevHP)
+        {
+            if (spriteRenderer != null)
+                StartCoroutine(HitColorEffect());
 
+            if (hitEffectPrefab != null && hitEffectPoint != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
+
+                var ps = effect.GetComponent<ParticleSystem>();
+                if (ps != null) ps.Play();
+
+                Destroy(effect, 1.5f);
+            }
+        }
+
+        // 사망 처리
         if (IsDead)
         {
             Debug.Log($"{enemyName} 처치됨");
 
-            // 파티클 생성 (부모 없이 생성)
             if (dieParticlePrefab != null)
             {
                 GameObject particle = Instantiate(dieParticlePrefab, transform.position, Quaternion.identity);
-                particle.transform.SetParent(null); // 부모 관계 제거
-                Destroy(particle, 2f); // 파티클 수명 후 제거
+                particle.transform.SetParent(null);
+
+                var ps = particle.GetComponent<ParticleSystem>();
+                if (ps != null) ps.Play();
+
+                Destroy(particle, 2f);
             }
 
-
-            // 일정 시간 후 오브젝트 비활성화
             StartCoroutine(DeactivateAfterDelay(0.5f));
         }
     }
+
     private IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -90,42 +108,29 @@ public class EnemyUnit : MonoBehaviour
             hpText.text = $"{CurrentHP} / {maxHP}";
     }
 
-    // 공격 보드용 주사위 굴리기
     public void RollAttackDice()
     {
-        // 기존 주사위 삭제
-        foreach (GameObject dice in attackDiceObjects)
-        {
-            Destroy(dice);
-        }
+        foreach (GameObject dice in attackDiceObjects) Destroy(dice);
         attackDiceObjects.Clear();
 
-        // 새 주사위 생성
         int created = 0;
         for (int i = 0; i < attackSlots.Length && created < diceCount; i++)
         {
             if (attackSlots[i].childCount == 0)
             {
                 GameObject dice = Instantiate(dicePrefab, attackSlots[i]);
-                dice.transform.localPosition = Vector3.zero; // 위치 정렬
+                dice.transform.localPosition = Vector3.zero;
                 attackDiceObjects.Add(dice);
                 created++;
             }
         }
-
     }
 
-    // 방어 보드용 주사위 굴리기
     public void RollDefenseDice()
     {
-        // 기존 주사위 삭제
-        foreach (GameObject dice in defenseDiceObjects)
-        {
-            Destroy(dice);
-        }
+        foreach (GameObject dice in defenseDiceObjects) Destroy(dice);
         defenseDiceObjects.Clear();
 
-        // 새 주사위 생성
         int created = 0;
         for (int i = 0; i < defenseSlots.Length && created < diceCount; i++)
         {
