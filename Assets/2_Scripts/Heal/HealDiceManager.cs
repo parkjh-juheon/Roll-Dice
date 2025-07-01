@@ -51,6 +51,9 @@ public class EventDiceManager : MonoBehaviour
         nextButton.interactable = true; // 회복 후에도 Next 버튼 사용 가능
 
         healResultText.text = $"Heal: {result}\nHeal After HP\n{PlayerData.Instance.currentHP}/{PlayerData.Instance.maxHP}";
+
+        FindObjectOfType<Unit>()?.UpdateHPUI();
+
     }
 
     void ShowHealPanel()
