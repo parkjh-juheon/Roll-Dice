@@ -27,6 +27,7 @@ public class EventDiceManager : MonoBehaviour
 
         greenDice.RollDice();
         StartCoroutine(WaitForResult());
+        rollButton.interactable = false;
     }
 
     IEnumerator WaitForResult()
@@ -43,11 +44,10 @@ public class EventDiceManager : MonoBehaviour
             PlayerData.Instance.currentHP = PlayerData.Instance.maxHP;
 
         PlayerData.Instance.SaveHP();
-
         Debug.Log($"[회복 이벤트] 주사위: {result}, 회복 후 체력: {PlayerData.Instance.currentHP}");
 
         hasHealed = true;
-        rollButton.interactable = false;
+        
         nextButton.interactable = true; // 회복 후에도 Next 버튼 사용 가능
 
         healResultText.text = $"Heal: {result}\nHeal After HP\n{PlayerData.Instance.currentHP}/{PlayerData.Instance.maxHP}";
@@ -59,7 +59,6 @@ public class EventDiceManager : MonoBehaviour
             GameObject effect = Instantiate(player.healEffectPrefab, player.hitEffectPoint.position, Quaternion.identity);
             Destroy(effect, 2f);
         }
-
     }
 
     void ShowHealPanel()

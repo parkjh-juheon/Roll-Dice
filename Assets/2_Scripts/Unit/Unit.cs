@@ -88,17 +88,22 @@ public class Unit : MonoBehaviour
         int prevHP = CurrentHP;
         CurrentHP += amount;
 
-        // 회복량이 실제로 양수일 경우만 이펙트 출력
-        if (amount > 0 && CurrentHP > prevHP)
+        if (healEffectPrefab != null && healEffectPoint != null)
         {
-            if (healEffectPrefab != null && healEffectPoint != null)
+            GameObject effect = Instantiate(healEffectPrefab, healEffectPoint.position, Quaternion.identity);
+            ParticleSystem ps = effect.GetComponentInChildren<ParticleSystem>();
+            if (ps != null)
             {
-                GameObject effect = Instantiate(healEffectPrefab, healEffectPoint.position, Quaternion.identity);
-                ParticleSystem ps = effect.GetComponentInChildren<ParticleSystem>();
-                if (ps != null) ps.Play();
-                Destroy(effect, 2f);
+                Debug.Log(" 회복 이펙트: ParticleSystem 찾음, 재생 시작");
+                ps.Play();
             }
+            else
+            {
+                Debug.LogWarning(" 회복 이펙트: ParticleSystem 찾지 못함");
+            }
+            Destroy(effect, 2f);
         }
+
     }
 
 
