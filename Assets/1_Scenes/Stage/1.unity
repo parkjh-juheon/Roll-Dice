@@ -1441,7 +1441,7 @@ Transform:
   m_GameObject: {fileID: 480576205}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.3483887, y: -3.6103132, z: -0.30352443}
+  m_LocalPosition: {x: -5.38, y: -6.24, z: -0.30352443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2540,7 +2540,7 @@ Transform:
   m_GameObject: {fileID: 845789293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.8016114, y: -4.130313, z: -0.30352443}
+  m_LocalPosition: {x: 6.05, y: -6.72, z: -0.30352443}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16715,7 +16715,7 @@ Transform:
   m_GameObject: {fileID: 1434430306427428303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2239952, y: -0.27100027, z: -10}
+  m_LocalPosition: {x: -1.2166796, y: -0.27100027, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16867,7 +16867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 0.3
   shakeAmplitude: 1
-  shakeFrequency: 1
+  shakeFrequency: 2
 --- !u!1 &3523610563304227667
 GameObject:
   m_ObjectHideFlags: 0
