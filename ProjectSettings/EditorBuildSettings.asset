@@ -27,7 +27,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Map/Map 1.unity
     guid: 7db51b31b640a4544b9f65205695d0c3
   - enabled: 1
-    path: Assets/1_Scenes/Event 1.unity
+    path: Assets/1_Scenes/Event/Text Event.unity
     guid: 4e94f25cee09b044281d9024b91138ad
   - enabled: 1
     path: Assets/1_Scenes/Clear/HealClear.unity

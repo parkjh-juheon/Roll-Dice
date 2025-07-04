@@ -4,6 +4,8 @@ using TMPro;
 
 public class EventChoiceManager : MonoBehaviour
 {
+    public enum ChoiceEffectType { None, Heal, Damage }
+
     [Header("초기 질문")]
     public TextMeshProUGUI questionText;
     public Button yesButton;
@@ -18,9 +20,19 @@ public class EventChoiceManager : MonoBehaviour
     [TextArea]
     public string responseIfNo = "당신은 그냥 지나쳤다. 아무일도 일어나지 않았다";
 
+    [Header("플레이어 유닛")]
+    public Unit playerUnit; // 인스펙터에서 Player Unit 할당
+
+    [Header("Yes 버튼 효과")]
+    public ChoiceEffectType yesEffect = ChoiceEffectType.Heal;
+    public int yesValue = 10;
+
+    [Header("No 버튼 효과")]
+    public ChoiceEffectType noEffect = ChoiceEffectType.Damage;
+    public int noValue = 5;
+
     void Start()
     {
-        // 초기 상태 설정
         responseText.gameObject.SetActive(false);
         nextButton.gameObject.SetActive(false);
 
@@ -30,22 +42,40 @@ public class EventChoiceManager : MonoBehaviour
 
     void OnYesClicked()
     {
+        ApplyEffect(yesEffect, yesValue);
         ShowResponse(responseIfYes);
     }
 
     void OnNoClicked()
-    {
+    {   
+        ApplyEffect(noEffect, noValue);
         ShowResponse(responseIfNo);
+    }
+
+    void ApplyEffect(ChoiceEffectType effectType, int value)
+    {
+        if (playerUnit == null) return;
+
+        switch (effectType)
+        {
+            case ChoiceEffectType.Heal:
+                playerUnit.Heal(value);
+                break;
+            case ChoiceEffectType.Damage:
+                playerUnit.TakeDamage(value);
+                break;
+            case ChoiceEffectType.None:
+            default:
+                break;
+        }
     }
 
     void ShowResponse(string message)
     {
-        // 질문 비활성화
         questionText.gameObject.SetActive(false);
         yesButton.gameObject.SetActive(false);
         noButton.gameObject.SetActive(false);
 
-        // 응답 표시
         responseText.text = message;
         responseText.gameObject.SetActive(true);
         nextButton.gameObject.SetActive(true);
