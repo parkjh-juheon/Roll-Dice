@@ -62,4 +62,11 @@ public class DiceDrag : MonoBehaviour
             transform.SetParent(null);
         }
     }
+
+    public void ResetPosition()
+    {
+        transform.position = initialPosition;
+        transform.SetParent(null); // 부모 슬롯에서 떼어냄
+    }
+
 }
