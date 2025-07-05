@@ -12,9 +12,6 @@ public class DiceRollManager : MonoBehaviour
     [Header("References")]
     public EnemyUnit[] enemyUnits;
     public Unit playerUnit; // 플레이어 유닛
-    
-    [Header("UI Panel")]
-    public GameObject victoryPanel;
 
     public AudioClip diceRollClip;      // 인스펙터에서 주사위 소리 연결
     private AudioSource audioSource;

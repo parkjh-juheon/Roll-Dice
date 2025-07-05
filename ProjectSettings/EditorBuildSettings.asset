@@ -15,20 +15,35 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/1.unity
     guid: 445ed26c6830e8d46857782681e54612
   - enabled: 1
-    path: Assets/1_Scenes/Clear/Clear.unity
+    path: Assets/1_Scenes/Clear/1 Clear.unity
     guid: 529d7a9453fbd3a4d802fd50b2754596
-  - enabled: 1
-    path: Assets/1_Scenes/Stage/2-1.unity
-    guid: 8f1e43f4d46fda84281f1448f6289656
-  - enabled: 0
-    path: Assets/1_Scenes/Stage/2-2.unity
-    guid: 88938fd473c13e9449edc8a4bf79c352
   - enabled: 1
     path: Assets/1_Scenes/Map/Map 1.unity
     guid: 7db51b31b640a4544b9f65205695d0c3
   - enabled: 1
-    path: Assets/1_Scenes/Event/Text Event.unity
-    guid: 4e94f25cee09b044281d9024b91138ad
+    path: Assets/1_Scenes/Stage/2-1.unity
+    guid: 8f1e43f4d46fda84281f1448f6289656
+  - enabled: 1
+    path: Assets/1_Scenes/Clear/2-1 Clear.unity
+    guid: 6fcbfc1cecd92eb42a50613b53e5c304
+  - enabled: 1
+    path: Assets/1_Scenes/Map/Map 2-1.unity
+    guid: ee68bac436becac4ca3b8127f3ff92e2
+  - enabled: 1
+    path: Assets/1_Scenes/Stage/2-2.unity
+    guid: 844468961446d7e44a374d123f358344
+  - enabled: 1
+    path: Assets/1_Scenes/Clear/2-2Clear.unity
+    guid: e669a2e52cbf3804e9db91dcf322e484
+  - enabled: 1
+    path: Assets/1_Scenes/Map/Map 2-2.unity
+    guid: 986d73f16cb2e2242874b8dbeb022137
+  - enabled: 1
+    path: Assets/1_Scenes/Event/Event 3-2.unity
+    guid: 7b8634676d3883f4cb982af59cd83a88
+  - enabled: 1
+    path: Assets/1_Scenes/Event/Event 3-3.unity
+    guid: e6ee0f5b69087a94ea9fbf03dd3745c5
   - enabled: 1
     path: Assets/1_Scenes/Clear/HealClear.unity
     guid: b24d2cdd0082e3d43a136063cffccf7e
