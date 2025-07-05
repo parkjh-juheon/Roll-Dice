@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -84,25 +85,25 @@ public class DiceRollManager : MonoBehaviour
         {
             if (!enemy.IsDead)
             {
-                SpawnDiceInSlots(enemy.attackSlots, enemy.diceCount, enemy.dicePrefab);
-                SpawnDiceInSlots(enemy.defenseSlots, enemy.diceCount, enemy.dicePrefab);
-            }
-            else
-            {
-                Debug.Log($"{enemy.enemyName}은(는) 죽어 주사위 생성 안 함");
+                // 공격 + 방어 슬롯을 합쳐서 전달
+                List<Transform> combinedSlots = new List<Transform>();
+                combinedSlots.AddRange(enemy.attackSlots);
+                combinedSlots.AddRange(enemy.defenseSlots);
+
+                SpawnCombinedDice(combinedSlots.ToArray(), enemy.diceCount, enemy.dicePrefab);
             }
         }
     }
 
-    void SpawnDiceInSlots(Transform[] slots, int diceCount, GameObject dicePrefab)
+    void SpawnCombinedDice(Transform[] allSlots, int diceCount, GameObject dicePrefab)
     {
-        int maxDice = Mathf.Min(diceCount, slots.Length);
+        int maxDice = Mathf.Min(diceCount, allSlots.Length);
         int placed = 0, attempts = 0, maxAttempts = 100;
 
         while (placed < maxDice && attempts < maxAttempts)
         {
-            int rand = Random.Range(0, slots.Length);
-            Transform slot = slots[rand];
+            int rand = Random.Range(0, allSlots.Length);
+            Transform slot = allSlots[rand];
 
             if (slot.childCount == 0)
             {
@@ -111,12 +112,38 @@ public class DiceRollManager : MonoBehaviour
                 diceObj.transform.localPosition = Vector3.zero;
                 placed++;
             }
+
             attempts++;
         }
 
         if (attempts >= maxAttempts)
-            Debug.LogWarning("SpawnDiceInSlots: 시도 초과");
+            Debug.LogWarning("SpawnCombinedDice: 시도 초과");
     }
+
+
+    //void SpawnDiceInSlots(Transform[] slots, int diceCount, GameObject dicePrefab)
+    //{
+    //    int maxDice = Mathf.Min(diceCount, slots.Length);
+    //    int placed = 0, attempts = 0, maxAttempts = 100;
+
+    //    while (placed < maxDice && attempts < maxAttempts)
+    //    {
+    //        int rand = Random.Range(0, slots.Length);
+    //        Transform slot = slots[rand];
+
+    //        if (slot.childCount == 0)
+    //        {
+    //            GameObject diceObj = Instantiate(dicePrefab, slot.position, Quaternion.identity);
+    //            diceObj.transform.SetParent(slot);
+    //            diceObj.transform.localPosition = Vector3.zero;
+    //            placed++;
+    //        }
+    //        attempts++;
+    //    }
+
+    //    if (attempts >= maxAttempts)
+    //        Debug.LogWarning("SpawnDiceInSlots: 시도 초과");
+    //}
 
     public void ResetAllDice()
     {

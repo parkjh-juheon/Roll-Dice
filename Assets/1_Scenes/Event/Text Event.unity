@@ -862,6 +862,11 @@ MonoBehaviour:
     \uBB34\uC870\uAC74 \uB2CC\uD150\uB3C42\uB85C \uD50C\uB808\uC774\uD574\uB77C\""
   responseIfNo: "\uB2F9\uC2E0\uC740 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4. \n\uC544\uBB34\uC77C\uB3C4
     \uC77C\uC5B4\uB098\uC9C0 \uC54A\uC558\uB2E4"
+  playerUnit: {fileID: 1425691146}
+  yesEffect: 0
+  yesValue: 10
+  noEffect: 0
+  noValue: 5
 --- !u!4 &778897055
 Transform:
   m_ObjectHideFlags: 0
@@ -1737,6 +1742,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425691146 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+  m_PrefabInstance: {fileID: 1956304829}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65448ef2d27af28498adebcf42a151a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1435907477
 GameObject:
   m_ObjectHideFlags: 0
