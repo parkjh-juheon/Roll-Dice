@@ -126,7 +126,7 @@ public class EnemyUnit : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    protected void UpdateHPUI()
+    protected virtual void UpdateHPUI()
     {
         if (hpText != null)
             hpText.text = $"{CurrentHP} / {maxHP}";
