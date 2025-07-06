@@ -8,7 +8,7 @@ public class EnemyUnit : MonoBehaviour
     [Header("기본 정보")]
     public string enemyName = "Enemy";
     public int maxHP = 10;
-    public int CurrentHP { get; private set; }
+    public int CurrentHP { get; protected set; }
 
     [Header("주사위 설정")]
     public int diceCount = 3;
@@ -29,13 +29,18 @@ public class EnemyUnit : MonoBehaviour
 
     [Header("파티클")]
     public GameObject dieParticlePrefab;
-    public GameObject hitEffectPrefab;             // 🔽 추가: 피격 이펙트 프리팹
-    public Transform hitEffectPoint;               // 🔽 추가: 피격 이펙트 위치
+    public GameObject hitEffectPrefab;             
+    public Transform hitEffectPoint;              
+
+    [Header("애니메이션")]
+    public Animator animator; // 인스펙터에서 할당
 
     public bool IsDead => CurrentHP <= 0;
 
     private List<GameObject> attackDiceObjects = new List<GameObject>();
     private List<GameObject> defenseDiceObjects = new List<GameObject>();
+
+    private bool hasRevived = false;
 
     private void Awake()
     {
@@ -43,7 +48,7 @@ public class EnemyUnit : MonoBehaviour
         UpdateHPUI();
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         int prevHP = CurrentHP;
         CurrentHP -= damage;
@@ -71,6 +76,25 @@ public class EnemyUnit : MonoBehaviour
         // 사망 처리
         if (IsDead)
         {
+            //if (CompareTag("Boss") && !hasRevived)
+            //{
+            //    hasRevived = true;
+            //    Debug.Log($"{enemyName} (Boss) 부활!");
+
+            //    if (animator != null)
+            //        animator.SetTrigger("Revive");
+
+            //    // 부활 후 체력 회복
+            //    CurrentHP = Mathf.Max(30, maxHP / 2); // 회복량 조절 가능
+            //    UpdateHPUI();
+
+            //    // 부활 후 주사위 개수 변경
+            //    diceCount = 6; // 예: 부활 후 공격적으로 변함
+
+            //    return; // 사망 처리 안 함
+            //}
+
+
             Debug.Log($"{enemyName} 처치됨");
 
             if (dieParticlePrefab != null)
@@ -88,13 +112,13 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
-    private IEnumerator DeactivateAfterDelay(float delay)
+    protected IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         gameObject.SetActive(false);
     }
 
-    private IEnumerator HitColorEffect()
+    protected IEnumerator HitColorEffect()
     {
         Color originalColor = spriteRenderer.color;
         spriteRenderer.color = hitColor;
@@ -102,7 +126,7 @@ public class EnemyUnit : MonoBehaviour
         spriteRenderer.color = originalColor;
     }
 
-    private void UpdateHPUI()
+    protected void UpdateHPUI()
     {
         if (hpText != null)
             hpText.text = $"{CurrentHP} / {maxHP}";

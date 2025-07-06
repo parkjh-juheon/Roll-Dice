@@ -10,6 +10,7 @@ TagManager:
   - P_Defense_Board
   - E_Attack_Board
   - E_Defense_Board
+  - Boss
   layers:
   - Default
   - TransparentFX
