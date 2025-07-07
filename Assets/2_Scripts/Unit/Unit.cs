@@ -26,7 +26,13 @@ public class Unit : MonoBehaviour
 
     [Header("회복 이펙트")]
     public GameObject healEffectPrefab;
-    public Transform healEffectPoint; 
+    public Transform healEffectPoint;
+
+    [Header("효과음")]
+    public AudioClip hitSound;
+    public AudioClip healSound;
+    public AudioSource audioSource;
+
 
 
     private void Awake()
@@ -64,6 +70,10 @@ public class Unit : MonoBehaviour
             if (CameraShake.Instance != null)
                 CameraShake.Instance.ShakeCamera();
 
+            // 효과음 재생
+            if (audioSource != null && hitSound != null)
+                audioSource.PlayOneShot(hitSound);
+
             if (hitEffectPrefab != null && hitEffectPoint != null)
             {
                 GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
@@ -72,6 +82,7 @@ public class Unit : MonoBehaviour
                 Destroy(effect, 2f);
             }
         }
+
 
         if (unitName == "Player" && CurrentHP <= 0)
         {
@@ -88,6 +99,10 @@ public class Unit : MonoBehaviour
         int prevHP = CurrentHP;
         CurrentHP += amount;
 
+        //  효과음 재생
+        if (audioSource != null && healSound != null)
+            audioSource.PlayOneShot(healSound);
+
         if (healEffectPrefab != null && healEffectPoint != null)
         {
             GameObject effect = Instantiate(healEffectPrefab, healEffectPoint.position, Quaternion.identity);
@@ -103,8 +118,8 @@ public class Unit : MonoBehaviour
             }
             Destroy(effect, 2f);
         }
-
     }
+
 
 
     public void SaveHP()
