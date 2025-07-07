@@ -76,25 +76,6 @@ public class EnemyUnit : MonoBehaviour
         // 사망 처리
         if (IsDead)
         {
-            //if (CompareTag("Boss") && !hasRevived)
-            //{
-            //    hasRevived = true;
-            //    Debug.Log($"{enemyName} (Boss) 부활!");
-
-            //    if (animator != null)
-            //        animator.SetTrigger("Revive");
-
-            //    // 부활 후 체력 회복
-            //    CurrentHP = Mathf.Max(30, maxHP / 2); // 회복량 조절 가능
-            //    UpdateHPUI();
-
-            //    // 부활 후 주사위 개수 변경
-            //    diceCount = 6; // 예: 부활 후 공격적으로 변함
-
-            //    return; // 사망 처리 안 함
-            //}
-
-
             Debug.Log($"{enemyName} 처치됨");
 
             if (dieParticlePrefab != null)

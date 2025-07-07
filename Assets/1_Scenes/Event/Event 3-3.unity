@@ -6220,7 +6220,7 @@ Transform:
   m_GameObject: {fileID: 1116281002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2245436, y: 1.0789998, z: -10}
+  m_LocalPosition: {x: -1.2209616, y: 1.0789998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7347,7 +7347,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Map 2
+          m_StringArgument: 3-3 Clear
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1710173763
@@ -7523,9 +7523,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1823188455}
     - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+      propertyPath: healEffectPoint
+      value: 
+      objectReference: {fileID: 1823188455}
+    - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: hitEffectPrefab
       value: 
       objectReference: {fileID: 149704860}
+    - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+      propertyPath: healEffectPrefab
+      value: 
+      objectReference: {fileID: 6665896951887431030, guid: 7532c192d03a1ed498c3a0d5073190af, type: 3}
     - target: {fileID: 3739021306666155652, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: m_Color.b
       value: 1

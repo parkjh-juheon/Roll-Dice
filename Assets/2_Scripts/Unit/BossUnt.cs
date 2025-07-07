@@ -77,7 +77,7 @@ public class BossUnit : EnemyUnit
             if (animator != null)
                 animator.SetTrigger("Death");
 
-            StartCoroutine(DeactivateAfterDelay(0.5f));
+            StartCoroutine(DeactivateAfterDelay(2.3f));
         }
     }
 
