@@ -1996,8 +1996,8 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 1708513427}
   hitEffectPoint: {fileID: 845789294}
   animator: {fileID: 706158907}
-  reviveHP: 10
-  reviveDiceCount: 1
+  reviveHP: 30
+  reviveDiceCount: 6
   bossHPText: {fileID: 1731182685}
 --- !u!1 &728335514
 GameObject:
@@ -2133,7 +2133,7 @@ MonoBehaviour:
   - {fileID: 706158908}
   playerUnit: {fileID: 5877795769299013126}
   diceRollClip: {fileID: 8300000, guid: 9faa5d587f0a59644aaa7a9c13085a52, type: 3}
-  nextSceneName: 1 Clear
+  nextSceneName: 1 Clear 1
 --- !u!82 &792695701
 AudioSource:
   m_ObjectHideFlags: 0

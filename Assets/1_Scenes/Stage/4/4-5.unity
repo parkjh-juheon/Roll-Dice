@@ -2801,7 +2801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Goblin
-  maxHP: 10
+  maxHP: 20
   diceCount: 2
   dicePrefab: {fileID: 1980046223}
   attackSlots:
@@ -10282,7 +10282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy
-  maxHP: 20
+  maxHP: 30
   diceCount: 1
   dicePrefab: {fileID: 302699786}
   attackSlots:
