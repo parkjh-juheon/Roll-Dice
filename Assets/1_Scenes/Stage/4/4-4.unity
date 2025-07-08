@@ -10284,7 +10284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy
-  maxHP: 20
+  maxHP: 5
   diceCount: 1
   dicePrefab: {fileID: 302699786}
   attackSlots:
