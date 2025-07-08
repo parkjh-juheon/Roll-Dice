@@ -2728,7 +2728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Goblin
-  maxHP: 5
+  maxHP: 30
   diceCount: 2
   dicePrefab: {fileID: 1980046223}
   attackSlots:
@@ -3187,7 +3187,7 @@ MonoBehaviour:
   - {fileID: 706158906}
   playerUnit: {fileID: 172070020}
   diceRollClip: {fileID: 8300000, guid: 9faa5d587f0a59644aaa7a9c13085a52, type: 3}
-  nextSceneName: 5-3 Clear
+  nextSceneName: 6 Clear
 --- !u!82 &792695701
 AudioSource:
   m_ObjectHideFlags: 0
@@ -10415,7 +10415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Enemy
-  maxHP: 5
+  maxHP: 35
   diceCount: 1
   dicePrefab: {fileID: 302699786}
   attackSlots:
@@ -10529,7 +10529,7 @@ Transform:
   m_GameObject: {fileID: 1375230629}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3366795, y: 1.2889996, z: -10}
+  m_LocalPosition: {x: -1.3409615, y: 1.2889996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
