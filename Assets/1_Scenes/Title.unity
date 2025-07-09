@@ -1283,7 +1283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Roll the Dice
+  m_Text: The Die is Quest
 --- !u!222 &954924224
 CanvasRenderer:
   m_ObjectHideFlags: 0
