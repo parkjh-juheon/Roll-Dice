@@ -291,8 +291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149.3, y: 69.587}
-  m_SizeDelta: {x: 185.14, y: 28.8259}
+  m_AnchoredPosition: {x: 149.29999, y: 67.31619}
+  m_SizeDelta: {x: 185.14, y: 33.3675}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &96960410
 MonoBehaviour:
@@ -5926,13 +5926,12 @@ MonoBehaviour:
   noButton: {fileID: 1154523696}
   responseText: {fileID: 1626170848}
   nextButton: {fileID: 1710173762}
-  responseIfYes: "\uC694\uC815\uC774 \uB098\uD0C0\uB098 \uD68C\uBCF5\uC744 \uC2DC\uCF1C\uC8FC\uC5C8\uB2E4"
-  responseIfNo: "\uCFE8\uD558\uAC8C \uC790\uB9AC\uB97C \uB5A0\uB098\uB2E4\uAC00,
-    \uB118\uC5B4\uC84C\uB2E4"
+  responseIfYes: "\uCE68\uC744 \uBC14\uB974\uB2C8 \uC0C1\uCC98\uAC00 \uACEF\uC558\uB2E4"
+  responseIfNo: "\uD55C\uC228 \uC7A4\uB354\uB2C8 \uB2E4 \uB098\uC558\uB2E4"
   playerUnit: {fileID: 1956304830}
-  yesEffect: 1
-  yesValue: 10
-  noEffect: 2
+  yesEffect: 2
+  yesValue: 2
+  noEffect: 1
   noValue: 3
 --- !u!4 &778897055
 Transform:
@@ -6247,7 +6246,7 @@ Transform:
   m_GameObject: {fileID: 1116281002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2166796, y: 1.0789998, z: -10}
+  m_LocalPosition: {x: -1.2209616, y: 1.0789998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7079,7 +7078,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD655\uC778\uD55C\uB2E4"
+  m_text: "\uCE68\uC744 \uBC14\uB978\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
   m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
@@ -7250,7 +7249,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 5-4 Clear
+          m_StringArgument: 5-12 Clear
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1710173763
@@ -7601,8 +7600,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBC14\uB2E5\uC5D0 \uBB34\uC5B8\uAC00 \uB5A8\uC5B4\uC838 \uC788\uB2E4
-    \n\uC5B4\uB5BB\uAC8C \uD560\uAE4C?"
+  m_text: "\uBC29\uAE08 \uC804\uD22C\uC5D0\uC11C \uC0DD\uAE34 \uC0C1\uCC98\uAC00
+    \n\uBC8C\uC5B4\uC84C\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
   m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
@@ -7991,13 +7990,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2561556774099815610}
   - {fileID: 1710173761}
   - {fileID: 1202045543}
   - {fileID: 96960409}
   - {fileID: 1154523695}
   - {fileID: 2004647660}
   - {fileID: 1626170846}
+  - {fileID: 2561556774099815610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
