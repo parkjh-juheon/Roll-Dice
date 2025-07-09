@@ -35,6 +35,13 @@ public class EnemyUnit : MonoBehaviour
     [Header("애니메이션")]
     public Animator animator; // 인스펙터에서 할당
 
+    [Header("효과음")]
+    public AudioClip hitSound;
+    public AudioSource audioSource;
+
+    [Header("카메라 흔들림")]
+    public bool shakeCameraOnHit = true;
+
     public bool IsDead => CurrentHP <= 0;
 
     private List<GameObject> attackDiceObjects = new List<GameObject>();
@@ -59,17 +66,26 @@ public class EnemyUnit : MonoBehaviour
         // 피격 효과
         if (damage > 0 && CurrentHP < prevHP)
         {
-            if (spriteRenderer != null)
-                StartCoroutine(HitColorEffect());
-
-            if (hitEffectPrefab != null && hitEffectPoint != null)
+            if (damage > 0 && CurrentHP < prevHP)
             {
-                GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
+                if (spriteRenderer != null)
+                    StartCoroutine(HitColorEffect());
 
-                var ps = effect.GetComponent<ParticleSystem>();
-                if (ps != null) ps.Play();
+                if (hitEffectPrefab != null && hitEffectPoint != null)
+                {
+                    GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
+                    var ps = effect.GetComponent<ParticleSystem>();
+                    if (ps != null) ps.Play();
+                    Destroy(effect, 1.5f);
+                }
 
-                Destroy(effect, 1.5f);
+                // 피격 사운드
+                if (audioSource != null && hitSound != null)
+                    audioSource.PlayOneShot(hitSound);
+
+                // 카메라 흔들림
+                if (shakeCameraOnHit && CameraShake.Instance != null)
+                    CameraShake.Instance.ShakeCamera();
             }
         }
 

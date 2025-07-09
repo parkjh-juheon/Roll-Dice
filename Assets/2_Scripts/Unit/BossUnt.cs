@@ -22,8 +22,8 @@ public class BossUnit : EnemyUnit
 
         UpdateHPUI();
 
-        // 피격 효과 및 애니메이션
-        if (damage > 0 && CurrentHP < prevHP)
+        // 피격 애니메이션 실행 전 - 사망 여부 확인 추가
+        if (!IsDead && damage > 0 && CurrentHP < prevHP)
         {
             if (spriteRenderer != null)
                 StartCoroutine(HitColorEffect());
@@ -40,6 +40,7 @@ public class BossUnit : EnemyUnit
             if (animator != null)
                 animator.SetTrigger("TakeHit");
         }
+
 
         // 부활 체크 먼저!
         if (IsDead && !hasRevived)
