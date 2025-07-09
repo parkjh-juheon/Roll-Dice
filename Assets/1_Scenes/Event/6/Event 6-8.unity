@@ -5926,10 +5926,10 @@ MonoBehaviour:
   noButton: {fileID: 1154523696}
   responseText: {fileID: 1626170848}
   nextButton: {fileID: 1710173762}
-  responseIfYes: "\uBCC4\uAC70 \uC5C6\uC5C8\uB2E4"
-  responseIfNo: "\uB2F9\uC2E0\uC740 \uBB34\uC2DC\uD558\uACE0 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4\n\uBB34\uC5B8\uAC00
-    \uB300\uB2E8\uD55C \uAC83\uC774 \uC788\uC5C8\uB358 \uAC83 \uAC19\uC544 \uCC1C\uCC1C\uD55C
-    \uAE30\uBD84\uC774 \uB4E0\uB2E4"
+  responseIfYes: "\uBC14\uB2E5\uC5D0\uB294 \uBA3C\uC9C0\uB9CC \uB0A0\uB9B0\uB2E4.
+    \uCC29\uAC01\uD588\uB2E4"
+  responseIfNo: "\uBAA8\uB4E0\uC9C0 \uB458\uB7EC\uBCF4\uB294 \uC2B5\uAD00\uC744 \uAE30\uB978\uB294
+    \uAC83\uC774 \uC88B"
   playerUnit: {fileID: 1956304830}
   yesEffect: 0
   yesValue: 10
@@ -6248,7 +6248,7 @@ Transform:
   m_GameObject: {fileID: 1116281002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2166796, y: 1.0789998, z: -10}
+  m_LocalPosition: {x: -1.2221165, y: 1.0789998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7992,13 +7992,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2561556774099815610}
   - {fileID: 1710173761}
   - {fileID: 1202045543}
   - {fileID: 96960409}
   - {fileID: 1154523695}
   - {fileID: 2004647660}
   - {fileID: 1626170846}
+  - {fileID: 2561556774099815610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

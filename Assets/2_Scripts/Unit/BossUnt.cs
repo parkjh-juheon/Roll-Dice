@@ -16,72 +16,39 @@ public class BossUnit : EnemyUnit
 
     public override void TakeDamage(int damage)
     {
-        //base.TakeDamage(damage);
         int prevHP = CurrentHP;
-        CurrentHP -= damage;
-        if (CurrentHP < 0) CurrentHP = 0;
+        int tempHP = CurrentHP - damage;
 
-        UpdateHPUI();
-
-        // 피격 애니메이션 실행 전 - 사망 여부 확인 추가
-        if (!IsDead && damage > 0 && CurrentHP < prevHP)
-        {
-            if (spriteRenderer != null)
-                StartCoroutine(HitColorEffect());
-
-            if (hitEffectPrefab != null && hitEffectPoint != null)
-            {
-                GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
-                var ps = effect.GetComponent<ParticleSystem>();
-                if (ps != null) ps.Play();
-                Destroy(effect, 1.5f);
-            }
-
-            // 피격 애니메이션 트리거
-            if (animator != null)
-                animator.SetTrigger("TakeHit");
-        }
-
-
-        // 부활 체크 먼저!
-        if (IsDead && !hasRevived)
+        // 부활 조건 먼저 확인
+        if (tempHP <= 0 && !hasRevived)
         {
             hasRevived = true;
 
-            CurrentHP = Mathf.Max(reviveHP, maxHP / 2); 
+            CurrentHP = Mathf.Max(reviveHP, maxHP / 2);
             UpdateHPUI();
-
             diceCount = reviveDiceCount;
 
             if (animator != null)
                 animator.SetTrigger("Revive");
 
-            Debug.Log($"{enemyName} (Boss) 부활! 현재 HP: {CurrentHP}, 주사위 개수: {diceCount}");
-
-            return; // 죽지 않고 부활
+            Debug.Log("Boss 부활!");
+            return;
         }
 
+        // 부활이 아니면 일반 피격 처리
+        TakeDamageCore(damage);
 
-        // 진짜 사망 처리
+        // 일반 사망 처리
         if (IsDead)
         {
-            Debug.Log($"{enemyName} (Boss) 완전히 처치됨");
-
-            if (dieParticlePrefab != null)
-            {
-                GameObject particle = Instantiate(dieParticlePrefab, transform.position, Quaternion.identity);
-                var ps = particle.GetComponent<ParticleSystem>();
-                if (ps != null) ps.Play();
-                Destroy(particle, 3.5f);
-            }
-
-            // 사망 애니메이션 트리거
             if (animator != null)
                 animator.SetTrigger("Death");
 
             StartCoroutine(DeactivateAfterDelay(2.3f));
         }
     }
+
+
 
     protected override void UpdateHPUI()
     {

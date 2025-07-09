@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBB34\uC2DC\uD55C\uB2E4"
+  m_text: "\uC2A4\uB9C8\uD2B8\uD3F0\uC744 \uC0AC\uC6A9\uD55C\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
   m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
@@ -5926,15 +5926,15 @@ MonoBehaviour:
   noButton: {fileID: 1154523696}
   responseText: {fileID: 1626170848}
   nextButton: {fileID: 1710173762}
-  responseIfYes: "\uBCC4\uAC70 \uC5C6\uC5C8\uB2E4"
-  responseIfNo: "\uB2F9\uC2E0\uC740 \uBB34\uC2DC\uD558\uACE0 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4\n\uBB34\uC5B8\uAC00
-    \uB300\uB2E8\uD55C \uAC83\uC774 \uC788\uC5C8\uB358 \uAC83 \uAC19\uC544 \uCC1C\uCC1C\uD55C
-    \uAE30\uBD84\uC774 \uB4E0\uB2E4"
+  responseIfYes: "\uC8FC\uBCC0\uC744 \uBC1D\uD600 \uC548\uC804\uD558\uAC8C \uAC08
+    \uC218 \uC788\uC5C8\uB2E4"
+  responseIfNo: "\uADF8\uB7F0\uAC70 \uC5C6\uB2E4, \uC5B4\uB450\uC6CC \uBC1C\uC744
+    \uAC78\uB824 \uB118\uC5B4\uC84C\uB2E4"
   playerUnit: {fileID: 1956304830}
   yesEffect: 0
   yesValue: 10
-  noEffect: 0
-  noValue: 20
+  noEffect: 2
+  noValue: 3
 --- !u!4 &778897055
 Transform:
   m_ObjectHideFlags: 0
@@ -6248,7 +6248,7 @@ Transform:
   m_GameObject: {fileID: 1116281002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2166796, y: 1.0789998, z: -10}
+  m_LocalPosition: {x: -1.2221165, y: 1.0789998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6291,8 +6291,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149.3034, y: -16.169}
-  m_SizeDelta: {x: 185.1331, y: 32.338}
+  m_AnchoredPosition: {x: 199.63992, y: -14.392401}
+  m_SizeDelta: {x: 285.8062, y: 28.7848}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154523696
 MonoBehaviour:
@@ -7080,7 +7080,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uD655\uC778\uD55C\uB2E4"
+  m_text: "\uC131\uB0E5\uC744 \uC0AC\uC6A9\uD55C\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
   m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
@@ -7602,8 +7602,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBC14\uB2E5\uC5D0 \uBB34\uC5B8\uAC00 \uB5A8\uC5B4\uC838 \uC788\uB2E4.
-    \uC5B4\uB5BB\uAC8C \uD560\uAE4C?"
+  m_text: "\uC8FC\uBCC0\uC774 \uB108\uBB34 \uC5B4\uB461\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
   m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}

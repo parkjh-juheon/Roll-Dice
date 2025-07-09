@@ -5926,7 +5926,8 @@ MonoBehaviour:
   noButton: {fileID: 1154523696}
   responseText: {fileID: 1626170848}
   nextButton: {fileID: 1710173762}
-  responseIfYes: "\uBCC4\uAC70 \uC5C6\uC5C8\uB2E4"
+  responseIfYes: "\uB274\uD134\uC774 \uB9D0\uD588\uB2E4. \n\uC778\uD130\uB137\uC774
+    \uC758 \uB3CC\uC544\uB2E4\uB2C8\uB294 \uBA85\uC5B8\uC744 \uBBFF\uC9C0 \uB9D0\uC544\uB77C"
   responseIfNo: "\uB2F9\uC2E0\uC740 \uBB34\uC2DC\uD558\uACE0 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4\n\uBB34\uC5B8\uAC00
     \uB300\uB2E8\uD55C \uAC83\uC774 \uC788\uC5C8\uB358 \uAC83 \uAC19\uC544 \uCC1C\uCC1C\uD55C
     \uAE30\uBD84\uC774 \uB4E0\uB2E4"
@@ -6248,7 +6249,7 @@ Transform:
   m_GameObject: {fileID: 1116281002}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2166796, y: 1.0789998, z: -10}
+  m_LocalPosition: {x: -1.2221165, y: 1.0789998, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

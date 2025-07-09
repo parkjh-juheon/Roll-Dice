@@ -109,6 +109,41 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
+    // EnemyUnit.cs 안에 이렇게 함수 분리
+    public void TakeDamageCore(int damage)
+    {
+        int prevHP = CurrentHP;
+        CurrentHP -= damage;
+        if (CurrentHP < 0) CurrentHP = 0;
+
+        UpdateHPUI();
+
+        if (damage > 0 && CurrentHP < prevHP)
+        {
+            if (spriteRenderer != null)
+                StartCoroutine(HitColorEffect());
+
+            if (hitEffectPrefab != null && hitEffectPoint != null)
+            {
+                GameObject effect = Instantiate(hitEffectPrefab, hitEffectPoint.position, Quaternion.identity);
+                var ps = effect.GetComponent<ParticleSystem>();
+                if (ps != null) ps.Play();
+                Destroy(effect, 1.5f);
+            }
+
+            if (audioSource != null && hitSound != null)
+                audioSource.PlayOneShot(hitSound);
+
+            if (shakeCameraOnHit && CameraShake.Instance != null)
+                CameraShake.Instance.ShakeCamera();
+
+            if (animator != null)
+                animator.SetTrigger("TakeHit");
+        }
+    }
+
+
+
     protected IEnumerator DeactivateAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
