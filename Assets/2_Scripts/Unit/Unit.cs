@@ -144,4 +144,11 @@ public class Unit : MonoBehaviour
         yield return new WaitForSeconds(delay);
         SceneManager.LoadScene("GameOver");
     }
+
+    public virtual void ResetHP()
+    {
+        CurrentHP = maxHP;
+        UpdateHPUI();
+    }
+
 }

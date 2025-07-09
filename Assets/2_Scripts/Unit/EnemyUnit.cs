@@ -164,4 +164,11 @@ public class EnemyUnit : MonoBehaviour
             }
         }
     }
+
+    public virtual void ResetHP()
+    {
+        CurrentHP = maxHP;
+        UpdateHPUI();
+    }
+
 }

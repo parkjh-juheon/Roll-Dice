@@ -37,14 +37,35 @@ public class TutorialManager : MonoBehaviour
     {
         if (step == 3)
         {
-            ShowStep(0); // 튜토리얼 종료
+            ShowStep(0);
             Debug.Log("Step 3 완료: Reset 버튼 → 튜토리얼 종료");
 
-            // 불투명 배경 제거
+            // 배경 제거
             if (dimBackground != null)
                 dimBackground.SetActive(false);
+
+            // 씬 내 모든 유닛 HP 초기화
+            ResetAllUnitsHP();
         }
     }
+
+    private void ResetAllUnitsHP()
+    {
+        // Player Unit
+        Unit player = FindObjectOfType<Unit>();
+        if (player != null)
+            player.ResetHP();
+
+        // Enemy Units
+        EnemyUnit[] enemies = FindObjectsOfType<EnemyUnit>();
+        foreach (EnemyUnit enemy in enemies)
+        {
+            enemy.ResetHP();
+        }
+
+        Debug.Log("튜토리얼 종료 후 모든 유닛 HP 초기화 완료");
+    }
+
 
     void ShowStep(int newStep)
     {
