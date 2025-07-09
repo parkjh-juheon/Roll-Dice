@@ -16,6 +16,7 @@ public class BossUnit : EnemyUnit
 
     public override void TakeDamage(int damage)
     {
+        base.TakeDamage(damage);
         int prevHP = CurrentHP;
         CurrentHP -= damage;
         if (CurrentHP < 0) CurrentHP = 0;
@@ -47,7 +48,7 @@ public class BossUnit : EnemyUnit
         {
             hasRevived = true;
 
-            CurrentHP = Mathf.Max(reviveHP, maxHP / 2); // ← 수정된 부분
+            CurrentHP = Mathf.Max(reviveHP, maxHP / 2); 
             UpdateHPUI();
 
             diceCount = reviveDiceCount;
@@ -87,6 +88,6 @@ public class BossUnit : EnemyUnit
         if (bossHPText != null)
             bossHPText.text = $"{CurrentHP} / {maxHP}";
         else
-            base.UpdateHPUI(); // 일반 hpText가 설정된 경우를 대비
+            base.UpdateHPUI();
     }
 }
