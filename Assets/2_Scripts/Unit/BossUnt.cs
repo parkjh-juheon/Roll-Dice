@@ -16,14 +16,15 @@ public class BossUnit : EnemyUnit
 
     public override void TakeDamage(int damage)
     {
+        //base.TakeDamage(damage);
         int prevHP = CurrentHP;
         CurrentHP -= damage;
         if (CurrentHP < 0) CurrentHP = 0;
 
         UpdateHPUI();
 
-        // 피격 효과 및 애니메이션
-        if (damage > 0 && CurrentHP < prevHP)
+        // 피격 애니메이션 실행 전 - 사망 여부 확인 추가
+        if (!IsDead && damage > 0 && CurrentHP < prevHP)
         {
             if (spriteRenderer != null)
                 StartCoroutine(HitColorEffect());
@@ -41,12 +42,13 @@ public class BossUnit : EnemyUnit
                 animator.SetTrigger("TakeHit");
         }
 
+
         // 부활 체크 먼저!
         if (IsDead && !hasRevived)
         {
             hasRevived = true;
 
-            CurrentHP = Mathf.Max(reviveHP, maxHP / 2); // ← 수정된 부분
+            CurrentHP = Mathf.Max(reviveHP, maxHP / 2); 
             UpdateHPUI();
 
             diceCount = reviveDiceCount;
@@ -86,6 +88,6 @@ public class BossUnit : EnemyUnit
         if (bossHPText != null)
             bossHPText.text = $"{CurrentHP} / {maxHP}";
         else
-            base.UpdateHPUI(); // 일반 hpText가 설정된 경우를 대비
+            base.UpdateHPUI();
     }
 }
