@@ -6,6 +6,8 @@ public class TutorialManager : MonoBehaviour
     public GameObject handStep2; // Roll 버튼 클릭 유도
     public GameObject handStep3; // Reset 버튼 클릭 유도
 
+    public GameObject dimBackground; // 불투명 배경 (새로 추가)
+
     private int step = 1;
 
     void Start()
@@ -15,7 +17,6 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        // Step 1: 화면 클릭 → Step 2로 전환
         if (step == 1 && Input.GetMouseButtonDown(0))
         {
             ShowStep(2);
@@ -38,6 +39,10 @@ public class TutorialManager : MonoBehaviour
         {
             ShowStep(0); // 튜토리얼 종료
             Debug.Log("Step 3 완료: Reset 버튼 → 튜토리얼 종료");
+
+            // 불투명 배경 제거
+            if (dimBackground != null)
+                dimBackground.SetActive(false);
         }
     }
 
@@ -48,5 +53,9 @@ public class TutorialManager : MonoBehaviour
         handStep1.SetActive(step == 1);
         handStep2.SetActive(step == 2);
         handStep3.SetActive(step == 3);
+
+        // 튜토리얼 시작 시 배경 켜기
+        if (dimBackground != null)
+            dimBackground.SetActive(step != 0);
     }
 }
