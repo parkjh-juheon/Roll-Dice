@@ -16,7 +16,7 @@ public class BossUnit : EnemyUnit
 
     public override void TakeDamage(int damage)
     {
-        base.TakeDamage(damage);
+        //base.TakeDamage(damage);
         int prevHP = CurrentHP;
         CurrentHP -= damage;
         if (CurrentHP < 0) CurrentHP = 0;
