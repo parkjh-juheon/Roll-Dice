@@ -1705,7 +1705,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5804767965583246865, guid: b1e90a4cefc1f2a409ac727d50028c54, type: 3}
+  m_Sprite: {fileID: -4802492265496317460, guid: 3316aabd5dd7e2743ad1214e35350560, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1843,7 +1843,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.55, y: -1.96, z: 0}
-  m_LocalScale: {x: 0.3826979, y: 0.31396288, z: 0.8096}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.8096}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -16358,6 +16358,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 575176731}
     - target: {fileID: 4959845410806842555, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959845410806842555, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959845410806842555, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.5
       objectReference: {fileID: 0}
@@ -16569,7 +16577,7 @@ Transform:
   m_GameObject: {fileID: 1434430306427428303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6066794, y: 0.058999777, z: -10}
+  m_LocalPosition: {x: -1.6123099, y: 0.4389999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16685,7 +16693,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
-  TargetOffset: {x: 0, y: 1.35, z: 0}
+  TargetOffset: {x: 0, y: 1.73, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
     Enabled: 0
