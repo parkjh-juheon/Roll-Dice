@@ -16672,7 +16672,7 @@ Transform:
   m_GameObject: {fileID: 1434430306427428303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6123099, y: 0.4389999, z: -10}
+  m_LocalPosition: {x: -1.6121163, y: 0.4389999, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16823,8 +16823,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 0.3
-  shakeAmplitude: 1
-  shakeFrequency: 2
+  shakeAmplitude: 0.5
+  shakeFrequency: 1
 --- !u!1 &3523610563304227667
 GameObject:
   m_ObjectHideFlags: 0
