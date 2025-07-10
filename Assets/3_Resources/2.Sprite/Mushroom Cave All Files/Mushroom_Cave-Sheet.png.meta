@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Mushroom_Cave-Sheet_0: -137266383862675454
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
