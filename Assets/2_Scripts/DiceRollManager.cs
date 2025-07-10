@@ -42,11 +42,9 @@ public class DiceRollManager : MonoBehaviour
 
     private IEnumerator RollAllDiceAndCalculate()
     {
-        // 플레이어 공격/방어 주사위 굴림
         RollDiceInSlots(playerAttackSlots);
         RollDiceInSlots(playerDefenseSlots);
 
-        // 적 공격/방어 주사위 굴림
         foreach (EnemyUnit enemy in enemyUnits)
         {
             if (!enemy.IsDead)
@@ -56,10 +54,22 @@ public class DiceRollManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1.1f);
+        // 모든 주사위가 멈출 때까지 기다리기
+        yield return new WaitUntil(() => AllDiceStopped());
 
+        // 전투 계산
         CalculateBattle();
     }
+
+    private bool AllDiceStopped()
+    {
+        foreach (Dice dice in FindObjectsOfType<Dice>())
+        {
+            if (dice.IsRolling()) return false;
+        }
+        return true;
+    }
+
 
     // 주어진 슬롯 배열의 주사위 모두 굴리기
     void RollDiceInSlots(Transform[] slots)
@@ -116,31 +126,6 @@ public class DiceRollManager : MonoBehaviour
         if (attempts >= maxAttempts)
             Debug.LogWarning("SpawnCombinedDice: 시도 초과");
     }
-
-
-    //void SpawnDiceInSlots(Transform[] slots, int diceCount, GameObject dicePrefab)
-    //{
-    //    int maxDice = Mathf.Min(diceCount, slots.Length);
-    //    int placed = 0, attempts = 0, maxAttempts = 100;
-
-    //    while (placed < maxDice && attempts < maxAttempts)
-    //    {
-    //        int rand = Random.Range(0, slots.Length);
-    //        Transform slot = slots[rand];
-
-    //        if (slot.childCount == 0)
-    //        {
-    //            GameObject diceObj = Instantiate(dicePrefab, slot.position, Quaternion.identity);
-    //            diceObj.transform.SetParent(slot);
-    //            diceObj.transform.localPosition = Vector3.zero;
-    //            placed++;
-    //        }
-    //        attempts++;
-    //    }
-
-    //    if (attempts >= maxAttempts)
-    //        Debug.LogWarning("SpawnDiceInSlots: 시도 초과");
-    //}
 
     public void ResetAllDice()
     {

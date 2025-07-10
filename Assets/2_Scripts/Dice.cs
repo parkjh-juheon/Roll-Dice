@@ -19,7 +19,10 @@ public class Dice : MonoBehaviour
     public void RollDice()
     {
         if (!isRolling)
+        {
+            CurrentValue = Random.Range(1, 7); // 즉시 값 설정
             StartCoroutine(RollDiceRoutine());
+        }
     }
 
     private IEnumerator RollDiceRoutine()
@@ -35,12 +38,11 @@ public class Dice : MonoBehaviour
             yield return new WaitForSeconds(rollInterval);
         }
 
-        // 최종 결과 결정
-        CurrentValue = Random.Range(1, 7);
+        // 애니메이션 후, 최종 눈만 보여주기
         spriteRenderer.sprite = diceFaces[CurrentValue - 1];
-
         isRolling = false;
     }
+
 
     public bool IsRolling()
     {

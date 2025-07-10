@@ -177,10 +177,10 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/5/5-14.unity
     guid: 5f350abb1a1fee34cb758478fe2d8e0a
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-1.unity
+    path: Assets/1_Scenes/Event/6/Event 6-1.unity
     guid: 2d6079e8c702fad4a91ac1b3551c33a7
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-2.unity
+    path: Assets/1_Scenes/Event/6/Event 6-2.unity
     guid: 4a8557dceb716fa4685481f7e58ff98a
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-3.unity
@@ -192,13 +192,13 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/6/6-5.unity
     guid: ce73d262e1ccdf14db32f6c76e9a3aa0
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-6.unity
+    path: Assets/1_Scenes/Event/6/Event 6-6.unity
     guid: 3daa9841c34463640afb947b73f83a1c
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-7.unity
     guid: 154b1dc5c9086614c8afefffa6030c1f
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-8.unity
+    path: Assets/1_Scenes/Event/6/Event 6-8.unity
     guid: 78080a74480d13747977fc7140de85f4
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-9.unity
@@ -207,7 +207,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/6/6-10.unity
     guid: 2729dcf3f87d98349a2a11efc033b861
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-11.unity
+    path: Assets/1_Scenes/Event/6/Event 6-11.unity
     guid: 73b8b07e0fcfdd147bf6204c5d24b4c9
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-12.unity
@@ -222,7 +222,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/6/6-16.unity
     guid: adc9c7eeb7f45754088f0158c84d7eb6
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-15.unity
+    path: Assets/1_Scenes/Event/6/Event 6-15.unity
     guid: 0b999ec13a758a846923c706918a044f
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-17.unity
@@ -234,7 +234,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/6/6-19.unity
     guid: 9a5de1bb11a2d50428e149645609b87e
   - enabled: 1
-    path: Assets/1_Scenes/Event/Event 6-20.unity
+    path: Assets/1_Scenes/Event/6/Event 6-20.unity
     guid: 40a03db983d9f7f44be05606a70afc68
   - enabled: 1
     path: Assets/1_Scenes/Stage/6/6-21.unity
