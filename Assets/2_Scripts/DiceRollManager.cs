@@ -61,7 +61,7 @@ public class DiceRollManager : MonoBehaviour
         CalculateBattle();
     }
 
-    private bool AllDiceStopped()
+    public bool AllDiceStopped()
     {
         foreach (Dice dice in FindObjectsOfType<Dice>())
         {
