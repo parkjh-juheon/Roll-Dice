@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyUnit : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class EnemyUnit : MonoBehaviour
 
     [Header("UI 연결")]
     public TextMeshProUGUI hpText;
+
+    [Header("체력바")]
+    public Image hpBar; // 인스펙터에서 체력바 이미지 연결
 
     [Header("스프라이트")]
     public SpriteRenderer spriteRenderer;
@@ -53,6 +57,10 @@ public class EnemyUnit : MonoBehaviour
     {
         CurrentHP = maxHP;
         UpdateHPUI();
+    }
+    private void Start()
+    {
+        UpdateHPUI(); // 씬이 완전히 로드되고 난 뒤 다시 보장
     }
 
     public virtual void TakeDamage(int damage)
@@ -162,6 +170,9 @@ public class EnemyUnit : MonoBehaviour
     {
         if (hpText != null)
             hpText.text = $"{CurrentHP} / {maxHP}";
+
+        if (hpBar != null)
+            hpBar.fillAmount = (float)CurrentHP / maxHP;
     }
 
     public void RollAttackDice()

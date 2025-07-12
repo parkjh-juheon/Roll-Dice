@@ -6184,16 +6184,15 @@ MonoBehaviour:
   noButton: {fileID: 1154523696}
   responseText: {fileID: 1626170848}
   nextButton: {fileID: 1710173762}
-  responseIfYes: "\uB274\uD134\uC774 \uB9D0\uD588\uB2E4. \n\uC778\uD130\uB137\uC774
-    \uC758 \uB3CC\uC544\uB2E4\uB2C8\uB294 \uBA85\uC5B8\uC744 \uBBFF\uC9C0 \uB9D0\uC544\uB77C"
-  responseIfNo: "\uB2F9\uC2E0\uC740 \uBB34\uC2DC\uD558\uACE0 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4\n\uBB34\uC5B8\uAC00
-    \uB300\uB2E8\uD55C \uAC83\uC774 \uC788\uC5C8\uB358 \uAC83 \uAC19\uC544 \uCC1C\uCC1C\uD55C
-    \uAE30\uBD84\uC774 \uB4E0\uB2E4"
+  responseIfYes: "\uB610 \uC804\uAC08\uC774\uB2E4"
+  responseIfNo: "\uB2F9\uC2E0\uC740 \uBB34\uC2DC\uD558\uACE0 \uADF8\uB0E5 \uC9C0\uB098\uCCE4\uB2E4\n\uB4A4\uB97C
+    \uB3CC\uC558\uB354\uB2C8 \uBBFC\uCD08\uAC00 \uB4E4\uC5B4\uC788\uB294 \uC0C1\uC790\uB97C
+    \uBC1C\uACAC\uD588\uB2E4"
   playerUnit: {fileID: 1956304830}
-  yesEffect: 0
-  yesValue: 10
-  noEffect: 0
-  noValue: 20
+  yesEffect: 2
+  yesValue: 3
+  noEffect: 1
+  noValue: 4
 --- !u!4 &778897055
 Transform:
   m_ObjectHideFlags: 0
@@ -7732,8 +7731,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
-  m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ae4f2510fc7e242469ddbf2fed935d16, type: 2}
+  m_sharedMaterial: {fileID: -793771585917552890, guid: ae4f2510fc7e242469ddbf2fed935d16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8310,6 +8309,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7784644098287235885, guid: 8fedb74408cf96b45b659e3fee4649b1, type: 3}
   m_PrefabInstance: {fileID: 1893234429}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1893234431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5325551119704988351, guid: 8fedb74408cf96b45b659e3fee4649b1, type: 3}
+  m_PrefabInstance: {fileID: 1893234429}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1893234432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6682395364977101639, guid: 8fedb74408cf96b45b659e3fee4649b1, type: 3}
+  m_PrefabInstance: {fileID: 1893234429}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1901074446
 GameObject:
   m_ObjectHideFlags: 0
@@ -8408,7 +8429,7 @@ PrefabInstance:
     - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: hpText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1893234432}
     - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: hitSound
       value: 
@@ -8417,6 +8438,10 @@ PrefabInstance:
       propertyPath: healSound
       value: 
       objectReference: {fileID: 8300000, guid: 6e20523548dd3ed47891943fb3cfaa3b, type: 3}
+    - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
+      propertyPath: hpBarFill
+      value: 
+      objectReference: {fileID: 1893234431}
     - target: {fileID: 1480696248327354578, guid: 1340958a003bbe249a3b15b9663cee4a, type: 3}
       propertyPath: audioSource
       value: 
@@ -8676,11 +8701,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBC14\uB2E5\uC5D0 \uBB34\uC5B8\uAC00 \uB5A8\uC5B4\uC838 \uC788\uB2E4.
-    \uC5B4\uB5BB\uAC8C \uD560\uAE4C?"
+  m_text: "\uBC14\uB2E5\uC5D0 \uBB34\uC5B8\uAC00 \uB5A8\uC5B4\uC838 \uC788\uB2E4\n\uC5B4\uB5BB\uAC8C
+    \uD560\uAE4C?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
-  m_sharedMaterial: {fileID: -6144022353733837696, guid: 52f80b2050ce47b418ae41eb7fc17d4b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f357402a1c80cf34092184e43cbc44c8, type: 2}
+  m_sharedMaterial: {fileID: 2785052069322466946, guid: f357402a1c80cf34092184e43cbc44c8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
