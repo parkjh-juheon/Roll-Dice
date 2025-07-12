@@ -138,7 +138,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/5/5-1.unity
     guid: a43b94862cbd49c4abe7fb3d036a5fa5
   - enabled: 1
-    path: Assets/1_Scenes/Event/5/Event 5-2.unity
+    path: Assets/1_Scenes/Event/5/Event 5-6.unity
     guid: e160990bc9274ed408cd880dfb73bd41
   - enabled: 1
     path: Assets/1_Scenes/Stage/5/5-3.unity
@@ -150,7 +150,7 @@ EditorBuildSettings:
     path: Assets/1_Scenes/Stage/5/5-5.unity
     guid: f2ede093f9a6fb64d9eba067ddcb31f8
   - enabled: 1
-    path: Assets/1_Scenes/Event/5/Event 5-6.unity
+    path: Assets/1_Scenes/Event/5/Event 5-2.unity
     guid: 8fe41b6b46e1a014f81180cc6b66a271
   - enabled: 1
     path: Assets/1_Scenes/Stage/5/5-7.unity

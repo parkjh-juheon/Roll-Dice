@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Unit : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Unit : MonoBehaviour
 
     [Header("UI 요소")]
     public TextMeshProUGUI hpText;
+    public Image hpBarFill; // 체력바의 Fill 이미지
 
     [Header("주사위 보드 슬롯")]
     public Transform[] attackSlots;
@@ -41,6 +43,12 @@ public class Unit : MonoBehaviour
         UpdateHPUI();
     }
 
+    private void Start()
+    {
+        UpdateHPUI(); // 씬이 완전히 로드되고 난 뒤 다시 보장
+    }
+
+
     public int CurrentHP
     {
         get => PlayerData.Instance.currentHP;
@@ -55,6 +63,9 @@ public class Unit : MonoBehaviour
     {
         if (hpText != null)
             hpText.text = $"{CurrentHP}/{maxHP}";
+
+        if (hpBarFill != null)
+            hpBarFill.fillAmount = (float)CurrentHP / maxHP;
     }
 
     public void TakeDamage(int damage)
