@@ -12732,7 +12732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgmSource: {fileID: 1421137015}
-  volumeSlider: {fileID: 0}
+  volumeSlider: {fileID: 1820748862}
 --- !u!4 &1421137017
 Transform:
   m_ObjectHideFlags: 0
