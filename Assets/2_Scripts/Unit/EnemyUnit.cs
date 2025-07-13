@@ -169,7 +169,7 @@ public class EnemyUnit : MonoBehaviour
     protected virtual void UpdateHPUI()
     {
         if (hpText != null)
-            hpText.text = $"{CurrentHP} / {maxHP}";
+            hpText.text = $"{CurrentHP}/{maxHP}";
 
         if (hpBar != null)
             hpBar.fillAmount = (float)CurrentHP / maxHP;
