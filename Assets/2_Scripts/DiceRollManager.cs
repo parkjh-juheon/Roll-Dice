@@ -100,7 +100,7 @@ public class DiceRollManager : MonoBehaviour
                 SpawnCombinedDice(combinedSlots.ToArray(), enemy.diceCount, enemy.dicePrefab);
             }
         }
-    }
+    }   
 
     void SpawnCombinedDice(Transform[] allSlots, int diceCount, GameObject dicePrefab)
     {
@@ -187,14 +187,7 @@ public class DiceRollManager : MonoBehaviour
         string playerDefenseDetail = GetDiceValuesDetailed(playerDefenseSlots, out int playerDefense);
         int damageToPlayer = Mathf.Max(0, totalEnemyAttack - playerDefense);
 
-        Debug.Log($"[전투] 적 전체 공격 합계: {totalEnemyAttackDetail}= {totalEnemyAttackBeforeDivide}");
-        Debug.Log($"[전투] 살아 있는 적 수: {aliveEnemyCount}, 평균 공격력: {totalEnemyAttack}");
-        Debug.Log($"[전투] 플레이어 방어: {playerDefenseDetail}= {playerDefense}");
-        Debug.Log($"[전투] 플레이어 피해량: {totalEnemyAttack} - {playerDefense} = {damageToPlayer}");
-
         playerUnit.TakeDamage(damageToPlayer);
-
-
 
         bool allEnemiesDead = true;
         foreach (EnemyUnit enemy in enemyUnits)
@@ -208,7 +201,6 @@ public class DiceRollManager : MonoBehaviour
 
         if (allEnemiesDead)
         {
-            Debug.Log("[전투] 모든 적 사망. 클리어 씬으로 이동!");
             StartCoroutine(DelayAndChangeScene(2f)); // 2초 딜레이 후 씬 전환 (원하는 시간으로 조절)
         }
     }
