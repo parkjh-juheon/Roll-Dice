@@ -9,6 +9,7 @@ public class QuizGameManager : MonoBehaviour
     [SerializeField] private Quiz quiz;
     [SerializeField] private EndScreen endScreen;
     [SerializeField] private GameObject loadingCanvas;
+    [SerializeField] private GameObject startScreen; 
 
     private void Awake()
     {
@@ -28,6 +29,22 @@ public class QuizGameManager : MonoBehaviour
     {
         //ShowQuizScene();
     }
+
+    public void ShowStartScreen()
+    {
+        startScreen.SetActive(true);
+        quiz.gameObject.SetActive(false);
+        endScreen.gameObject.SetActive(false);
+        loadingCanvas.SetActive(false);
+    }
+
+    public void OnStartButtonClicked()
+    {
+        startScreen.SetActive(false);
+        ShowQuizScene(); // Quiz 켜기
+        quiz.StartQuiz(); // 퀴즈 실제 시작
+    }
+
 
     /// <summary>
     /// 퀴즈 화면을 보여주는 함수

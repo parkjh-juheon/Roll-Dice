@@ -26,7 +26,6 @@ public class Quiz : MonoBehaviour
     bool chooseAnswer = false;
 
     [Header("점수")]
-    [SerializeField] TextMeshProUGUI scoreText;
     ScoerKeeper scoreKeeper;
 
     [Header("진행도 UI (아이콘 방식)")]
@@ -37,13 +36,20 @@ public class Quiz : MonoBehaviour
 
     private int currentQuestionIndex = 0;     // 현재 진행 중인 문제 번호
 
+    [Header("플레이어 유닛")]
+    [SerializeField] Unit playerUnit;
+    [SerializeField] int healAmount = 5;   // 정답시 회복량
+    [SerializeField] int damageAmount = 5; // 오답시 피해량
+
+    public List<HPLog> hpLogs = new List<HPLog>();
 
     [Header("ChteatGPT")]
     [SerializeField] ChatGPTClient ChatGPTClient;
-    [SerializeField] int questionCount = 3;
+    [SerializeField] int questionCount = 4;
     [SerializeField] TextMeshProUGUI LoadingText;
 
     bool isGeneratingQuestions = false;
+
 
     void Start()
     {
@@ -70,12 +76,31 @@ public class Quiz : MonoBehaviour
         {
             progressIcons[i].sprite = defaultIcon;
         }
-
-        if (questions.Count == 0)
-            GenerateQuestionsIfNeeded();
     }
 
+    // 외부에서 호출될 메서드
+    public void StartQuiz()
+    {
+        if (questions.Count == 0)
+            GenerateQuestionsIfNeeded();
+        else
+        {
+            // 아이콘 초기화
+            for (int i = 0; i < progressIcons.Length; i++)
+            {
+                progressIcons[i].sprite = defaultIcon;
+            }
+        }
 
+        // progressIcons 개수를 questionCount에 맞춰 검증
+        if (progressIcons.Length != questionCount)
+        {
+            Debug.LogWarning($"progressIcons 개수({progressIcons.Length})와 questionCount({questionCount})가 다릅니다. 자동 조정 필요!");
+            // → 여기서 UI를 생성하거나 questionCount를 progressIcons.Length로 강제 맞추기
+            questionCount = progressIcons.Length;
+        }
+
+    }
 
     private void GenerateQuestionsIfNeeded()
     {
@@ -147,9 +172,10 @@ public class Quiz : MonoBehaviour
             }
         }
 
-        // SolutionTime인데 답을 선택하지 않았을 때
+        // Update()
         if (!timer.isProblemTime && !chooseAnswer)
         {
+            chooseAnswer = true;   // 오답 처리 후 더 이상 중복 호출 안 되게 플래그 세팅
             DisplaySolution(-1);
         }
 
@@ -161,10 +187,16 @@ public class Quiz : MonoBehaviour
         }
     }
 
-
     private void GetNextQuestion()
     {
         timer.loadNextQuestion = false;
+
+        if (currentQuestionIndex >= progressIcons.Length)
+        {
+            QuizGameManager.Instance.ShowEndScreen();
+            enabled = false;
+            return;
+        }
 
         if (questions.Count <= 0)
         {
@@ -213,7 +245,6 @@ public class Quiz : MonoBehaviour
         DisplaySolution(index);
 
         timer.CancelTimer();
-        scoreText.text = $"Score: {scoreKeeper.CalculateScore()} %";
     }
 
     private void DisplaySolution(int index)
@@ -224,23 +255,47 @@ public class Quiz : MonoBehaviour
             answerButtons[index].GetComponent<Image>().sprite = correctAnswerSprite;
             scoreKeeper.IncrementCurrectAnswer();
 
-            // 진행도 아이콘 표시 (정답)
             if (currentQuestionIndex < progressIcons.Length)
                 progressIcons[currentQuestionIndex].sprite = correctIcon;
+
+            if (playerUnit != null)
+            {
+                playerUnit.Heal(healAmount);
+                hpLogs.Add(new HPLog(+healAmount, currentQuestion.GetQuestion()));
+            }
         }
         else
         {
             questionText.text = "오답입니다. 정답은 " + currentQuestion.GetCorrectAnswer();
 
-            // 진행도 아이콘 표시 (오답)
             if (currentQuestionIndex < progressIcons.Length)
                 progressIcons[currentQuestionIndex].sprite = wrongIcon;
+
+            if (playerUnit != null)
+            {
+                playerUnit.TakeDamage(damageAmount);
+                hpLogs.Add(new HPLog(-damageAmount, currentQuestion.GetQuestion()));
+            }
         }
 
-        currentQuestionIndex++; // 문제 하나 소모됨
         SetButtonState(false);
+
+        //  문제 하나 처리가 끝났으니 인덱스 증가
+        currentQuestionIndex++;
     }
 
+
+    public class HPLog
+    {
+        public int amount;      // 변화량 (+ 회복, - 피해)
+        public string question; // 어떤 문제에서 발생했는지 (선택사항)
+
+        public HPLog(int amount, string question = "")
+        {
+            this.amount = amount;
+            this.question = question;
+        }
+    }
 
     private void SetButtonState(bool state)
     {
