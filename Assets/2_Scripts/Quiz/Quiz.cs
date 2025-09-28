@@ -19,9 +19,9 @@ public class Quiz : MonoBehaviour
     [SerializeField] Sprite correctAnswerSprite;
 
     [Header("타이머")]
-    [SerializeField] Image timerImge;
-    [SerializeField] Sprite problemTimerSprite;
-    [SerializeField] Sprite solutionTimerSprite;
+    [SerializeField] Slider problemSlider;   // 문제 시간용
+    [SerializeField] Slider solutionSlider;  // 해답 시간용
+
     Timer timer;
     bool chooseAnswer = false;
 
@@ -29,8 +29,14 @@ public class Quiz : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     ScoerKeeper scoreKeeper;
 
-    [Header("바")]
-    [SerializeField] Slider progressBar;
+    [Header("진행도 UI (아이콘 방식)")]
+    [SerializeField] Image[] progressIcons;   // 문제 수만큼 할당
+    [SerializeField] Sprite defaultIcon;      // 기본 아이콘 (예: 회색)
+    [SerializeField] Sprite correctIcon;      // 정답 아이콘 (예: 초록색)
+    [SerializeField] Sprite wrongIcon;        // 오답 아이콘 (예: 빨강색)
+
+    private int currentQuestionIndex = 0;     // 현재 진행 중인 문제 번호
+
 
     [Header("ChteatGPT")]
     [SerializeField] ChatGPTClient ChatGPTClient;
@@ -45,22 +51,38 @@ public class Quiz : MonoBehaviour
         scoreKeeper = FindFirstObjectByType<ScoerKeeper>();
         ChatGPTClient.quizGenerateHandler += QuizGeneratedHandler;
 
+        // 문제/해답 슬라이더 초기 세팅
+        if (problemSlider != null)
+        {
+            problemSlider.minValue = 0f;
+            problemSlider.maxValue = 1f;
+            problemSlider.wholeNumbers = false;
+        }
+        if (solutionSlider != null)
+        {
+            solutionSlider.minValue = 0f;
+            solutionSlider.maxValue = 1f;
+            solutionSlider.wholeNumbers = false;
+        }
+
+        // 진행도 아이콘 초기화
+        for (int i = 0; i < progressIcons.Length; i++)
+        {
+            progressIcons[i].sprite = defaultIcon;
+        }
+
         if (questions.Count == 0)
-        {
             GenerateQuestionsIfNeeded();
-        }
-        else
-        {
-            InitializeProgressBar();
-        }
     }
+
+
 
     private void GenerateQuestionsIfNeeded()
     {
         if (isGeneratingQuestions) return;
 
         isGeneratingQuestions = true;
-        GameManager.Instance.ShowLoadingScreen();
+        QuizGameManager.Instance.ShowLoadingScreen();
         string toltipcUse = GetTrendingTooltip();
         ChatGPTClient.GenerateQuizQuestions(questionCount, toltipcUse);
         Debug.Log($"GenerateQuestionsIfNeeded : {toltipcUse}");
@@ -85,29 +107,31 @@ public class Quiz : MonoBehaviour
             return;
         }
         this.questions.AddRange(generateQuestions);
-        progressBar.maxValue += generateQuestions.Count;
 
         GetNextQuestion();
     }
 
-    private void InitializeProgressBar()
-    {
-        progressBar.maxValue = questions.Count;
-        progressBar.value = 0;
-    }
-
     private void Update()
     {
-        // Timer 이미지 업데이트
-        timerImge.fillAmount = timer.fillAmount;
+        if (timer == null) return;
 
         if (timer.isProblemTime)
         {
-            timerImge.sprite = problemTimerSprite;
+            // 문제 시간: 문제 슬라이더만 활성화
+            if (problemSlider != null) problemSlider.gameObject.SetActive(true);
+            if (solutionSlider != null) solutionSlider.gameObject.SetActive(false);
+
+            if (problemSlider != null)
+                problemSlider.value = timer.fillAmount;
         }
         else
         {
-            timerImge.sprite = solutionTimerSprite;
+            // 해답 시간: 해답 슬라이더만 활성화
+            if (problemSlider != null) problemSlider.gameObject.SetActive(false);
+            if (solutionSlider != null) solutionSlider.gameObject.SetActive(true);
+
+            if (solutionSlider != null)
+                solutionSlider.value = timer.fillAmount;
         }
 
         // 다음 문제 불러오기
@@ -116,21 +140,27 @@ public class Quiz : MonoBehaviour
             if (questions.Count == 0)
             {
                 GenerateQuestionsIfNeeded();
-                //GameManager.Instance.ShowEndScreen();
             }
             else
             {
-                //timer.loadNextQuestion = false;
                 GetNextQuestion();
             }
         }
 
         // SolutionTime인데 답을 선택하지 않았을 때
-        if (timer.isProblemTime == false && chooseAnswer == false)
+        if (!timer.isProblemTime && !chooseAnswer)
         {
             DisplaySolution(-1);
         }
+
+        // 모든 문제를 다 풀었을 경우 엔딩 화면으로 이동
+        if (currentQuestionIndex >= progressIcons.Length)
+        {
+            QuizGameManager.Instance.ShowEndScreen();
+            enabled = false; // Quiz 스크립트 비활성화
+        }
     }
+
 
     private void GetNextQuestion()
     {
@@ -142,14 +172,13 @@ public class Quiz : MonoBehaviour
             return;
         }
 
-        GameManager.Instance.ShowQuizScene();
+        QuizGameManager.Instance.ShowQuizScene();
         chooseAnswer = false;
         SetButtonState(true);
         SetDefaultButtonSprites();
         GetRandomQuestion();
         OnDisplayQuestion();
         scoreKeeper.IncrementquestionSeen();
-        progressBar.value++;
     }
 
     private void GetRandomQuestion()
@@ -194,13 +223,24 @@ public class Quiz : MonoBehaviour
             questionText.text = "정답입니다.";
             answerButtons[index].GetComponent<Image>().sprite = correctAnswerSprite;
             scoreKeeper.IncrementCurrectAnswer();
+
+            // 진행도 아이콘 표시 (정답)
+            if (currentQuestionIndex < progressIcons.Length)
+                progressIcons[currentQuestionIndex].sprite = correctIcon;
         }
         else
         {
-            questionText.text = "오답입니다. 아쉬워라 정답은 " + currentQuestion.GetCorrectAnswer();
+            questionText.text = "오답입니다. 정답은 " + currentQuestion.GetCorrectAnswer();
+
+            // 진행도 아이콘 표시 (오답)
+            if (currentQuestionIndex < progressIcons.Length)
+                progressIcons[currentQuestionIndex].sprite = wrongIcon;
         }
+
+        currentQuestionIndex++; // 문제 하나 소모됨
         SetButtonState(false);
     }
+
 
     private void SetButtonState(bool state)
     {

@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement; // æ¿ ∑ŒµÂ∏¶ ¿ß«ÿ « ø‰
 
-public class GameManager : MonoBehaviour
+public class QuizGameManager : MonoBehaviour
 {
     // ΩÃ±€≈Ê ¿ŒΩ∫≈œΩ∫
-    public static GameManager Instance { get; private set; }
+    public static QuizGameManager Instance { get; private set; }
 
     [SerializeField] private Quiz quiz;
     [SerializeField] private EndScreen endScreen;
