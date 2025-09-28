@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8766ae2a3ebb3cb46b628e1fb9e54989, type: 3}
   m_Name: Question 3
   m_EditorClassIdentifier: 
-  questionText: "\uAE08\uBE5B \uC6D0\uC22D\uC774\uC758 \uC721\uC544 \uBC29\uC2DD\uC740?"
+  question: "\uAE08\uBE5B \uC6D0\uC22D\uC774\uC758 \uC721\uC544 \uBC29\uBC95\uC740?"
   answers:
   - "\uC554\uCEF7\uACFC \uC218\uCEF7\uC774 \uC9DD\uC744 \uC774\uB904 \uD55C\uB9C8\uB9AC\uB97C
     \uD0A4\uC6B4\uB2E4"
@@ -21,3 +21,5 @@ MonoBehaviour:
   - "\uBB34\uB9AC\uC758 \uBAA8\uB4E0 \uC554\uCEF7\uC774 \uACF5\uB3D9\uC721\uC544\uB97C
     \uD55C\uB2E4"
   correctAnswerIndex: 3
+  hint: "\uAE08\uBE5B \uC6D0\uC22D\uC774\uB294 \uACF5\uB3D9\uCCB4 \uC0DD\uD65C\uC744
+    \uD569\uB2C8\uB2E4"
