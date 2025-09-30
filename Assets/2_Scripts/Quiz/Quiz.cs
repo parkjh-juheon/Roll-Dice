@@ -179,6 +179,31 @@ public class Quiz : MonoBehaviour
             DisplaySolution(-1);
         }
 
+        if (timer.isProblemTime && problemSlider != null)
+        {
+            float threshold = 0.2f;   // 남은 시간 비율 20% 이하일 때
+            float blinkSpeed = 5f;    // 깜빡이는 속도
+
+            Image sliderFill = problemSlider.fillRect.GetComponent<Image>();
+            if (timer.fillAmount <= threshold)
+            {
+                float t = Mathf.Abs(Mathf.Sin(Time.time * blinkSpeed));
+                sliderFill.color = Color.Lerp(Color.white, Color.red, t);
+
+                //  힌트 표시 (처음 한번만)
+                if (!hintText.gameObject.activeSelf)
+                {
+                    hintText.gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                sliderFill.color = Color.white;
+            }
+        }
+
+
+
         // 모든 문제를 다 풀었을 경우 엔딩 화면으로 이동
         if (currentQuestionIndex >= progressIcons.Length)
         {
@@ -230,14 +255,24 @@ public class Quiz : MonoBehaviour
 
     private void OnDisplayQuestion()
     {
-        questionText.text = currentQuestion.GetQuestion();
-        hintText.text = "힌트: " + currentQuestion.hint;
-
-        for (int i = 0; i < answerButtons.Length; i++)
+        if (currentQuestion == null)
         {
-            answerButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentQuestion.GetAnswers(i);
+            Debug.LogError("currentQuestion이 null입니다!");
+            return;
         }
+
+        // 문제 텍스트 설정
+        questionText.text = currentQuestion.GetQuestion();
+
+        // 힌트 초기화
+        hintText.text = "힌트: " + currentQuestion.hint;
+        hintText.gameObject.SetActive(false);
+
+        // 버튼 텍스트 설정
+        for (int i = 0; i < answerButtons.Length; i++)
+            answerButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentQuestion.GetAnswers(i);
     }
+
 
     public void OnAnswerButtonClicked(int index)
     {
@@ -249,10 +284,18 @@ public class Quiz : MonoBehaviour
 
     private void DisplaySolution(int index)
     {
+        // 남은 시간 비율
+        float timeFactor = timer != null ? timer.fillAmount : 1f;
+
+        // 정답/오답에 따른 실제 회복/피해량 계산
+        int actualHeal = Mathf.CeilToInt(healAmount * timeFactor);        // 시간이 많으면 더 회복
+        int actualDamage = Mathf.CeilToInt(damageAmount * (1f - timeFactor)); // 시간이 적으면 더 피해
+
         if (index == currentQuestion.GetCorrectAnswerIndex())
         {
             questionText.text = "정답입니다.";
-            answerButtons[index].GetComponent<Image>().sprite = correctAnswerSprite;
+            if (index >= 0)
+                answerButtons[index].GetComponent<Image>().sprite = correctAnswerSprite;
             scoreKeeper.IncrementCurrectAnswer();
 
             if (currentQuestionIndex < progressIcons.Length)
@@ -260,8 +303,8 @@ public class Quiz : MonoBehaviour
 
             if (playerUnit != null)
             {
-                playerUnit.Heal(healAmount);
-                hpLogs.Add(new HPLog(+healAmount, currentQuestion.GetQuestion()));
+                playerUnit.Heal(actualHeal);
+                hpLogs.Add(new HPLog(+actualHeal, currentQuestion.GetQuestion()));
             }
         }
         else
@@ -273,17 +316,14 @@ public class Quiz : MonoBehaviour
 
             if (playerUnit != null)
             {
-                playerUnit.TakeDamage(damageAmount);
-                hpLogs.Add(new HPLog(-damageAmount, currentQuestion.GetQuestion()));
+                playerUnit.TakeDamage(actualDamage);
+                hpLogs.Add(new HPLog(-actualDamage, currentQuestion.GetQuestion()));
             }
         }
 
         SetButtonState(false);
-
-        //  문제 하나 처리가 끝났으니 인덱스 증가
         currentQuestionIndex++;
     }
-
 
     public class HPLog
     {

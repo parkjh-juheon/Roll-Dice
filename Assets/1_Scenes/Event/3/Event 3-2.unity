@@ -10742,7 +10742,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4116859381661349810
 GameObject:
   m_ObjectHideFlags: 0
@@ -11640,7 +11640,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.09189583, y: 0.098000005}
   m_AnchorMax: {x: 0.59168744, y: 0.171}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 788.8, y: 485}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &7058346602753117695
@@ -11729,8 +11729,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -11850,7 +11850,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fe7f995ad9487de4899dac7ea03f4cb2, type: 2}
   - {fileID: 11400000, guid: a87112a793c53934c8e1d50873953a2c, type: 2}
   - {fileID: 11400000, guid: 1fd7699942521224ebc14e0b2694aa49, type: 2}
-  - {fileID: 11400000, guid: 4b36965cc3accb342afd4d4523676805, type: 2}
+  - {fileID: 11400000, guid: 1fd7699942521224ebc14e0b2694aa49, type: 2}
   answerButtons:
   - {fileID: 2850779}
   - {fileID: 1252473136}
@@ -11870,7 +11870,7 @@ MonoBehaviour:
   wrongIcon: {fileID: -9094301929961256274, guid: 1ff3305ab8f9cf54fac371adc6a104cf, type: 3}
   playerUnit: {fileID: 1956304830}
   healAmount: 5
-  damageAmount: 1
+  damageAmount: 5
   ChatGPTClient: {fileID: 1930943912}
   questionCount: 3
   LoadingText: {fileID: 1271868451727733895}
