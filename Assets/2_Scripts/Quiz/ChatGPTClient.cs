@@ -126,6 +126,8 @@ public class ChatGPTClient : MonoBehaviour
                        "  ]\n" +
                        "}";
 
+
+
         Debug.Log("Prompt to ChatGPT:\n" + prompt);
 
         ChatGPTRequest request = new ChatGPTRequest
@@ -147,7 +149,9 @@ public class ChatGPTClient : MonoBehaviour
             webRequest.SetRequestHeader("Content-Type", "application/json");
             webRequest.SetRequestHeader("Authorization", $"Bearer {apiKey}");
 
+            Debug.Log("1. ................ Sending request to ChatGPT API...");
             yield return webRequest.SendWebRequest();
+            Debug.Log("2. ................ Request completed.");
 
             if (webRequest.result == UnityWebRequest.Result.Success)
             {
@@ -193,7 +197,9 @@ public class ChatGPTClient : MonoBehaviour
                     QuizData quizData = JsonUtility.FromJson<QuizData>(jsonContent);
                     List<QuestionSO> generatedQuestions = CreateQuestionSOs(quizData.questions);
 
+                    Debug.Log($"2............ Generated {generatedQuestions.Count} questions.");
                     quizGenerateHandler?.Invoke(generatedQuestions);
+                    Debug.Log("Quiz questions generated and event invoked. quizGenerateHandler:: " + quizGenerateHandler == null? "isNull" : "is Something");
                 }
                 catch (Exception e)
                 {

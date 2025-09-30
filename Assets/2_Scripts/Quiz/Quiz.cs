@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Quiz : MonoBehaviour
 {
     [Header("질문")]
@@ -49,13 +48,12 @@ public class Quiz : MonoBehaviour
     [SerializeField] TextMeshProUGUI LoadingText;
 
     bool isGeneratingQuestions = false;
-
-
     void Start()
     {
         timer = FindFirstObjectByType<Timer>();
         scoreKeeper = FindFirstObjectByType<ScoerKeeper>();
         ChatGPTClient.quizGenerateHandler += QuizGeneratedHandler;
+        Debug.Log($"Quiz Start() : ChatGPTClient.quizGenerateHandler event 등록 !!! ");
 
         // 문제/해답 슬라이더 초기 세팅
         if (problemSlider != null)
@@ -244,12 +242,16 @@ public class Quiz : MonoBehaviour
         currentQuestion = questions[randomIndex];
         questions.RemoveAt(randomIndex);
     }
-
     private void SetDefaultButtonSprites()
     {
         foreach (GameObject obj in answerButtons)
         {
-            obj.GetComponent<Image>().sprite = defaultAnswerSprite;
+            Image img = obj.GetComponent<Image>();
+            img.sprite = defaultAnswerSprite;
+
+            AnswerButtonHover hover = obj.GetComponent<AnswerButtonHover>();
+            if (hover != null)
+                hover.ResetSprite(defaultAnswerSprite);
         }
     }
 
